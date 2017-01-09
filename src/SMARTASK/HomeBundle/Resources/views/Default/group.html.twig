@@ -16,7 +16,7 @@
           <div class="thumbnail" style="padding: 20">
             <div style="padding:4px">
               <a href="{{ path('open_group_detail', {'id': group.id}) }}">
-                <img alt="300x200" style="width: 100%" src="{{ asset('bundles/smartaskhome/images/bench.JPG') }}">
+                <span class="glyphicon glyphicon-inbox logo-big" aria-hidden="true"></span>
               </a>
             </div>
             <div class="caption">
@@ -33,7 +33,8 @@
               {% else %}  
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>  {{ group.getUsers.count }}
               {% endif %}
-              <th class="span4"><a href="{{ path('smartask_delete_group', {'id': group.id}) }}" class="btn btn-primary" role="button">Delete</a></th>
+              <th class="span4"><a href="{{ path('smartask_delete_group', {'id': group.id}) }}" class="btn btn-primary" role="button">Supprimer</a></th>
+              <th class="span4"><a href="{{ path('open_group_detail', {'id': group.id}) }}" class="btn btn-primary" role="button">Ouvrir</a></th>
               </div>
             </div>
           </div>
