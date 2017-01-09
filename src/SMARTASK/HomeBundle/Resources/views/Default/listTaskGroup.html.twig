@@ -1,0 +1,35 @@
+{% extends "SMARTASKHomeBundle:Default:detailgroup.html.twig" %}
+{% block content %}
+<div class="container">
+  <h2>Liste des taches</h2>          
+  <table class="list-group">
+    <thead>
+      <tr>
+        <th>Titre</th>
+        <th>Lieu</th>
+        <th>Description</th>
+        <th>Group</th>
+        <th>Manager</th>
+        <th>Responsable</th>
+        <th>Date</th>
+        <th>Heure</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in listTasks %}
+      <tr>
+        <td>{{ task.getTitre }}</td>
+        <td>{{ task.getLocalisation }}</td>
+        <td>{{ task.getDescription }}</td>
+        <td>{{ task.getGroup.getNom}}</td>
+        <td>{{ task.getManager.getUsername}}</td>
+        <td>{{ task.getResp.getUsername}}</td>
+        <td>{{ task.getDate|date("m/d/Y")}}</td>
+        <td>{{ task.getTime|date("H:m")}}</td>
+        <td><a href="{{ path('deleteTaskGroup', {'taskId': task.getId, 'groupId' : group.getId }) }}" class="btn btn-default" role="button">supprimer</a></td>
+      </tr>
+        {% endfor %}     
+    </tbody>
+  </table>
+</div>
+{% endblock %}

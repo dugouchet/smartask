@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+{% block fos_user_content %}
+{% trans_default_domain 'FOSUserBundle' %}
+    <div class="container">
+		<div class="row">
+			<div class="panel panel-primary">
+				<div class="panel-body">
+					<form method="POST" action="{{ path('fos_user_registration_register') }}" class="fos_user_registration_register" role="form">
+						<div class="form-group">
+							<h2>Create account</h2>
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="signupName">Your name</label>
+                            {{ form_widget(form.username) }}
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="signupEmail">Email</label>
+                            {{ form_widget(form.email) }}
+                            {{ form_errors(form.email) }}
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="signupPassword">Password</label>
+                            {{ form_widget(form.plainPassword.first) }}
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="signupPasswordagain">Password again</label>
+                            {{ form_widget(form.plainPassword.second) }}
+						</div>
+						<div class="form-group">
+							<button class="btn btn-info btn-block" type="submit" name="action">Create your account</button>
+						</div>
+						<p class="form-group">By creating an account, you agree to our <a href="#">Terms of Use</a> and our <a href="#">Privacy Policy</a>.</p>
+						<hr>
+						{{ form_rest(form) }}
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+ </body>
+</html>
+{% endblock fos_user_content %}

@@ -1,0 +1,29 @@
+{% extends "SMARTASKHomeBundle:Default:home.html.twig" %}
+{%block tile%}{{ parent() }} - Detail Group{% endblock %}
+{% block body %}
+  <style>
+  /* Note: Try to remove the following lines to see the effect of CSS positioning */
+  .affix {
+      top: 20px;
+  }
+  </style>
+<div class="container">
+<h3>{{ group.getNom() }}</h3>
+  <div class="row">
+    <nav class="col-sm-3">
+      <ul class="nav nav-pills nav-stacked"  data-offset-top="205">
+        <li class="active"><a href="{{ path('activity_group', {'id': group.getId}) }}">Activiy</a></li>
+        <li><a href="{{ path('add_contact_group', {'id': group.getId}) }}">Add Person</a></li>
+        <li><a href="{{ path('list_members_group', {'id': group.getId}) }}">Members</a></li>
+        <li><a href="#section3">Discussion</a></li>
+      </ul>
+    </nav>
+    <div class="col-sm-9">   
+    {% block content %}
+{% endblock  %}
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

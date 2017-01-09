@@ -1,0 +1,16 @@
+branch-defaults:
+  default:
+    environment: Sample-env-2
+  master:
+    environment: Sample-env-2
+environment-defaults:
+  Sample-env-2:
+    branch: null
+    repository: null
+global:
+  application_name: my_app
+  default_ec2_keyname: null
+  default_platform: 64bit Amazon Linux 2016.09 v2.2.0 running PHP 7.0
+  default_region: eu-central-1
+  profile: eb-cli
+  sc: null

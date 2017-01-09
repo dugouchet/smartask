@@ -1,0 +1,24 @@
+{% extends "SMARTASKHomeBundle:Default:detailgroup.html.twig" %}
+
+
+{% block content %}
+  <h2>Liste des contacts</h2>          
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>email</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in group.getUsers() %}
+      <tr>
+        <td>{{ user.getUsername }}</td>
+        <td>{{ user.getEmail }}</td>
+        <td><a href="{{ path('remove_person_from_group', {'userId': user.getId, 'groupId' : group.getId }) }}" class="btn btn-default" role="button">remove from group</a></td>
+      </tr>
+        {% endfor %}     
+    </tbody>
+  </table>
+</div>
+{% endblock %}

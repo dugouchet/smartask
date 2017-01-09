@@ -1,0 +1,14 @@
+{
+  "name": "y",
+  "description": "smartask project",
+  "main": "jesaispas",
+  "keywords": [
+    "jesaispasnonplus"
+  ],
+  "authors": [
+    "anthony dugouchet"
+  ],
+  "license": "MIT",
+  "homepage": "accueil",
+  "private": true
+}

@@ -1,0 +1,45 @@
+{% extends "::base.html.twig" %}
+        {% block stylesheets %}
+        	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+            {% stylesheets 'bundles/smartaskhome/css/accueilstyle.css'
+                           'assets/vendor/sweetalert/dist/sweetalert.css' %}
+    			<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+       		 {% endstylesheets %}
+        {% endblock %}
+{% block navbar %}
+	<!-- la nav bar -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">SmarTask</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-left">
+					<li><a href="{{ path('smartask_contact_homepage')}}">CONTACTS</a></li>
+					<li><a href="{{ path('smartask_group_homepage')}}">GROUPES</a></li>
+					<li><a href="{{ path('smartask_task_homepage')}}">CREER TACHE</a></li>
+					<li><a href="{{ path('smartask_activity_homepage')}}">ACTIVITES</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+					<li><a href="#"><span class="glyphicon glyphicon-user"></span>
+						{{ app.user.username }}</a></li>
+					<li><a href="{{ path('fos_user_security_logout') }}"><span
+							class="glyphicon glyphicon-user"></span>Logout</a></li>
+					{% else %}
+					<li><a href="{{ path('fos_user_security_login') }}"><span
+							class="glyphicon glyphicon-log-in"></span>Login</a></li>
+					{% endif %}
+				</ul>
+			</div>
+	</nav>
+{% endblock %}	
+
+	{% block body %}
+	{% endblock %}

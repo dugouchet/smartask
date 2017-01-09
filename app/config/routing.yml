@@ -1,0 +1,105 @@
+smartask_listner:
+    resource: "@SMARTASKListnerBundle/Resources/config/routing.yml"
+    prefix:   /
+
+GETuser:
+    path:  /getuser_api
+    defaults: { _controller: SMARTASKHomeBundle:Default:getUser, _format: json, _locale: en}
+    requirements:
+      _method:  GET
+      _format: JSON 
+DELETEcontact:
+    path:  /deletecontact_api
+    defaults: { _controller: SMARTASKHomeBundle:Default:deleteContactAPI, _format: json, _locale: en}
+    requirements:
+      _method:  DELETE
+      _format: JSON
+      
+DELETEGroup:
+    path:  /deletegroup_api
+    defaults: { _controller: SMARTASKHomeBundle:Default:deleteGroupAPI, _format: json, _locale: en}
+    requirements:
+      _method:  DELETE
+      _format: JSON
+      
+DELETETask:
+    path:  /deletetask_api
+    defaults: { _controller: SMARTASKHomeBundle:Default:deleteTaskAPI, _format: json, _locale: en}
+    requirements:
+      _method:  DELETE
+      _format: JSON
+      
+POSTcontact:
+    path:  /postcontact_api
+    defaults: { _controller: SMARTASKHomeBundle:Default:postContact, _format: json, _locale: en}
+    requirements:
+      _method:  POST
+      _format: JSON  
+      
+POSTtask:
+    path:  /posttask_api
+    defaults: { _controller: SMARTASKHomeBundle:Default:postTask, _format: json, _locale: en}
+    requirements:
+      _method:  POST
+      _format: JSON   
+      
+POSTgroup:
+    path:  /postgroup_api
+    defaults: { _controller: SMARTASKHomeBundle:Default:postGroup, _format: json, _locale: en}
+    requirements:
+      _method:  POST
+      _format: JSON            
+GETcontacts:
+    path:  /getcontacts_api
+    defaults: { _controller: SMARTASKHomeBundle:Default:getAllContacts, _format: json, _locale: en}
+    requirements:
+      _method:  GET
+      _format: JSON  
+GETtasks:
+    path:  /gettasks_api
+    defaults: { _controller: SMARTASKHomeBundle:Default:getAllTasks, _format: json, _locale: en}
+    requirements:
+      _method:  GET
+      _format: JSON 
+GETgroups:
+    path:  /getgroups_api
+    defaults: { _controller: SMARTASKHomeBundle:Default:getAllGroups, _format: json, _locale: en}
+    requirements:
+      _method:  GET
+      _format: JSON 
+smartask_activity_accueil:
+    path: /accueil
+    defaults:
+        _controller: SMARTASKHomeBundle:Default:accueil
+login:
+    path: /accueil
+login_check:
+    path: /login_check
+logout:
+    path: /logout
+smartask_home:
+    resource: "@SMARTASKHomeBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+smartask_activity_homepage:
+    path:     /activite
+    defaults: { _controller: SMARTASKHomeBundle:Default:activity }
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

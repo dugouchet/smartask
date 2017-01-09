@@ -1,0 +1,29 @@
+{% extends "SMARTASKHomeBundle:Default:home.html.twig" %}
+{%block tile%}{{ parent() }} - Contacts{% endblock %}
+{% block body %}
+<h3>Ajout d'un contact</h3>
+<div class="well">
+  {{ form(form) }}
+</div>
+
+<div class="container">
+  <h2>Liste des contacts</h2>          
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>email</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for contact in listContacts %}
+      <tr>
+        <td>{{ contact.getName }}</td>
+        <td>{{ contact.getEmail }}</td>
+        <td><a href="{{ path('smartask_delete_contact', {'id': contact.id}) }}" class="btn btn-default" role="button">supprimer</a></td>
+      </tr>
+        {% endfor %}     
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta content='text/html; charset=utf-8' http-equiv='content-type'>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}SmarTask{% endblock %}</title>
+        {% block stylesheets %}        	
+            {% stylesheets 'bundles/smartaskhome/css/accueilstyle.css'
+                           'assets/vendor/font-awesome/css/font-awesome.css'
+                           'assets/vendor/bootstrap/dist/css/bootstrap.min.css' %}
+    			<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+       		 {% endstylesheets %}
+        {% endblock %}
+	</head>
+<body>
+{% block navbar %}{% endblock %}
+{% block body %}{% endblock %}
+<footer>
+    <div class="footer" id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+                    <h3> About us </h3>
+                    <ul>
+                        <li> <a href="#"> Team </a> </li>
+                        <li> <a href="#"> FAQ </a> </li>
+                        <li> <a href="#"> ... </a> </li>
+                        <li> <a href="#"> ... </a> </li>
+                    </ul>
+                </div>
+                <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+                    <h3> Job </h3>
+                    <ul>
+                        <li> <a href="#"> Job </a> </li>
+                        <li> <a href="#"> ... </a> </li>
+                        <li> <a href="#"> ...</a> </li>
+                        <li> <a href="#"> ... </a> </li>
+                    </ul>
+                </div>
+                <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+                    <h3> Media </h3>
+                    <ul>
+                        <li> <a href="#"> ... </a> </li>
+                    </ul>
+                </div>
+                <div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+                    <h3> Help </h3>
+                    <ul>
+                        <li> <a href="#"> ... </a> </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3  col-md-3 col-sm-6 col-xs-12 ">
+                    <h3> Socials </h3>
+                    <ul class="social">
+                        <li> <a href="#"> <i class=" fa fa-facebook">   </i> </a> </li>
+                        <li> <a href="#"> <i class="fa fa-twitter">   </i> </a> </li>
+                        <li> <a href="#"> <i class="fa fa-google-plus">   </i> </a> </li>
+                        <li> <a href="#"> <i class="fa fa-pinterest">   </i> </a> </li>
+                        <li> <a href="#"> <i class="fa fa-youtube">   </i> </a> </li>
+                    </ul>
+                </div>
+            </div>
+            <!--/.row--> 
+        </div>
+        <!--/.container--> 
+    </div>
+    <!--/.footer-->
+    
+    <div class="footer-bottom">
+        <div class="container">
+            <p class="pull-left"> Copyright © SmarTask 2016. All right reserved. </p>
+            <div class="pull-right">
+                <ul class="nav nav-pills payments">
+                	<li><i class="fa fa-cc-visa"></i></li>
+                    <li><i class="fa fa-cc-mastercard"></i></li>
+                    <li><i class="fa fa-cc-amex"></i></li>
+                    <li><i class="fa fa-cc-paypal"></i></li>
+                </ul> 
+            </div>
+        </div>
+    </div>
+    <!--/.footer-bottom--> 
+</footer>        
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    {% javascripts 'assets/vendor/bootstrap/dist/js/bootstrap.min.js' %}
+    	<script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}
+    </body>
+</html>	

@@ -1,0 +1,13 @@
+{% extends "SMARTASKHomeBundle:Default:detailgroup.html.twig" %}
+
+
+{% block content %}
+<form method="post" action="{{ path('add_contact_group', {'id': group.getId() }) }}">
+    <select name="email">
+    {% for contact in list_contact %}
+        <option value={{ contact.getEmail() }}>{{ contact.getName() }}</option>
+     {% endfor %}
+    </select>
+    <input type="submit" value="add" />
+</form>
+{% endblock %}

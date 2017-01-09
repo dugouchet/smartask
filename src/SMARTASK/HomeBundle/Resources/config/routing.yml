@@ -1,0 +1,42 @@
+smartask_delete_contact:
+    path:     /contact/{id}
+    defaults: { _controller: SMARTASKHomeBundle:Default:deleteContact }
+smartask_delete_group:
+    path:     /groupe/{id}
+    defaults: { _controller: SMARTASKHomeBundle:Default:deleteGroup }  
+smartask_delete_task:
+    path:     /tache/{id}
+    defaults: { _controller: SMARTASKHomeBundle:Default:deleteTask }      
+smartask_contact_homepage:
+    path:     /contact
+    defaults: { _controller: SMARTASKHomeBundle:Default:contact }
+    
+smartask_group_homepage:
+    path:     /groupe
+    defaults: { _controller: SMARTASKHomeBundle:Default:group }
+    
+smartask_task_homepage:
+    path:     /tache
+    defaults: { _controller: SMARTASKHomeBundle:Default:task }
+    
+smartask_activity_homepage:
+    path:     /activite
+    defaults: { _controller: SMARTASKHomeBundle:Default:activity }
+open_group_detail:
+    path:     /groupe/detail/{id}
+    defaults: { _controller: SMARTASKHomeBundle:Default:open_group_detail }    
+add_contact_group:
+    path:     /groupe/detail/addperson/{id}
+    defaults: { _controller: SMARTASKHomeBundle:Default:addcontactgroup }  
+list_members_group:
+    path:     /groupe/detail/listmembers/{id}
+    defaults: { _controller: SMARTASKHomeBundle:Default:listMembersGroup } 
+remove_person_from_group:
+    path:     /groupe/detail/listmembers/{groupId}/{userId}
+    defaults: { _controller: SMARTASKHomeBundle:Default:remove_person_from_group } 
+activity_group:
+    path:     /groupe/detail/activity/{id}
+    defaults: { _controller: SMARTASKHomeBundle:Default:activity_group } 
+deleteTaskGroup:     
+    path:     /groupe/detail/activity/{groupId}/{taskId}
+    defaults: { _controller: SMARTASKHomeBundle:Default:deleteTaskGroup }
