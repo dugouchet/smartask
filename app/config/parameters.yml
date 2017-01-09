@@ -1,0 +1,12 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: aal69k5c6z1w1k.cy5jjim50nis.eu-central-1.rds.amazonaws.com
+    database_port: 3306
+    database_name: ebdb
+    database_user: root
+    database_password: rootroot
+    mailer_transport: smtp
+    mailer_host: null
+    mailer_user: smartask.project@gmail.com
+    mailer_password: !rvD93jWz
+    secret: d5d640a4df1ecd4216fe8d63dca5f1f1c6d43ff2
