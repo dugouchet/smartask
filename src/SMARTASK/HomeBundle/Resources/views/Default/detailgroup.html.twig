@@ -12,10 +12,10 @@
   <div class="row">
     <nav class="col-sm-3">
       <ul class="nav nav-pills nav-stacked"  data-offset-top="205">
-        <li class="active"><a href="{{ path('activity_group', {'id': group.getId}) }}">Activiy</a></li>
-        <li><a href="{{ path('add_contact_group', {'id': group.getId}) }}">Add Person</a></li>
-        <li><a href="{{ path('list_members_group', {'id': group.getId}) }}">Members</a></li>
-        <li><a href="#section3">Discussion</a></li>
+        <li class="active"><a href="{{ path('activity_group', {'id': group.getId}) }}">Activité</a></li>
+        <li><a href="{{ path('add_contact_group', {'id': group.getId}) }}">Ajouté membre</a></li>
+        <li><a href="{{ path('list_members_group', {'id': group.getId}) }}">Membres</a></li>
+        <li><a href="{{ path('comments_group', {'groupId': group.getId}) }}">Discussion</a></li>
       </ul>
     </nav>
     <div class="col-sm-9">   

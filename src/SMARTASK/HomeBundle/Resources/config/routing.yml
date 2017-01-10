@@ -40,3 +40,6 @@ activity_group:
 deleteTaskGroup:     
     path:     /groupe/detail/activity/{groupId}/{taskId}
     defaults: { _controller: SMARTASKHomeBundle:Default:deleteTaskGroup }
+comments_group:    
+    path:     /groupe/detail/comments/{groupId}
+    defaults: { _controller: SMARTASKHomeBundle:Default:comments_group } 

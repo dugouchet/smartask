@@ -1,6 +1,17 @@
+homepage:
+    prefix:   /
+    path: /
+    defaults:  { _controller: SMARTASKHomeBundle:Default:accueil }
+fos_comment_api:
+    type: rest
+    resource: "@FOSCommentBundle/Resources/config/routing.yml"
+    prefix: /api
+    defaults: { _format: html }
+smartask_comment:
+    resource: "@SMARTASKCommentBundle/Resources/config/routing.xml"
+
 smartask_listner:
     resource: "@SMARTASKListnerBundle/Resources/config/routing.yml"
-    prefix:   /
 
 GETuser:
     path:  /getuser_api

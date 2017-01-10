@@ -1,4 +1,4 @@
-Symfony
+SmarTask, Symfony project
 =======
 
 SmarTask is a symfony project in open source.

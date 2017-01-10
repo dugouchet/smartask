@@ -21,6 +21,9 @@ class AppKernel extends Kernel
         	new FOS\RestBundle\FOSRestBundle(),
             new SMARTASK\ListnerBundle\SMARTASKListnerBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new SMARTASK\CommentBundle\SMARTASKCommentBundle(),
+        	new FOS\CommentBundle\FOSCommentBundle(),
+        	new JMS\SerializerBundle\JMSSerializerBundle($this),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -5,9 +5,8 @@ namespace SMARTASK\HomeBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use SMARTASK\HomeBundle\Entity\Contact;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SMARTASK\HomeBundle\Entity\Groupe;
 use SMARTASK\HomeBundle\Entity\Task;
 use Symfony\Component\Validator\Constraints\Date;
@@ -22,6 +21,14 @@ use SMARTASK\HomeBundle\Form\ContactType;
 
 class DefaultController extends Controller
 {
+
+	
+	public function comments_groupAction($groupId){
+		$em =$this->getDoctrine()->getManager();
+		$group= $em->getRepository('SMARTASKHomeBundle:Groupe')->find( $groupId );
+		return $this->render('SMARTASKHomeBundle:Default:commentsGroup.html.twig',array('group' => $group));
+		
+	}
 	public function deleteTaskGroupAction($taskId, $groupId){
 		$em =$this->getDoctrine()->getManager();
 		$task = $em->getRepository('SMARTASKHomeBundle:Task')->find($taskId);
@@ -51,7 +58,7 @@ class DefaultController extends Controller
 	}
 	
 	public function addcontactgroupAction (Request $request, $id){
-		$user = $this->getUser();// Pour récupérer le service UserManager du bundle
+		$user = $this->getUser();// Pour rï¿½cupï¿½rer le service UserManager du bundle
 		$em =$this->getDoctrine()->getManager();
 		$group= $em->getRepository('SMARTASKHomeBundle:Groupe')->find( $id );
 		
@@ -62,7 +69,7 @@ class DefaultController extends Controller
 			$addeduser = $em->getRepository('SMARTASKUserBundle:User')->findBy(array('email' => $emailcontact));
 			if ($addeduser){
 			    $group->getUsers()->add($addeduser);
-			    $logger->info('addcontactgroupAction user ajouté');
+			    $logger->info('addcontactgroupAction user ajoutï¿½');
 			    return $this->render('SMARTASKHomeBundle:Default:detailgroup.html.twig',array('group' => $group));
 			}else{
 				return $this->render('SMARTASKHomeBundle:Default:error.html.twig',array('msg' => "L'utilisateur n'est pas encore enregistre"));
@@ -78,14 +85,17 @@ class DefaultController extends Controller
 		return $this->render('SMARTASKHomeBundle:Default:detailgroup.html.twig',array('group' => $group));
 	
 	}
-
+	/**
+	 * @Route("/")
+	 * @Template()
+	 */
 	public function accueilAction(Request $request){
 		
 		// envoie de mail pour les fans
 		$logger = $this->container->get('logger');
 		$logger->info('sendmailAction');
 				
-		// je vérifie si elle est de type POST
+		// je vï¿½rifie si elle est de type POST
 		if($request->isMethod('POST'))
 		{
 			$logger->info('sendmailAction POST');
@@ -189,7 +199,7 @@ class DefaultController extends Controller
 		$repository = $this->getDoctrine()->getManager()->getRepository('SMARTASKHomeBundle:Task');
 		$em =$this->getDoctrine()->getManager();
 		$task = $repository->find($request->get('id'));
-		if (!$task){//s'il n'existe pas on le créer et on l'ajoute a l'utilisateur
+		if (!$task){//s'il n'existe pas on le crï¿½er et on l'ajoute a l'utilisateur
 			$task = new Task();
 			$task->setTitre($request->get('titre'));
 			$groupe = $em->getRepository('SMARTASKHomeBundle:Groupe')->find(intval( $request->get('group_id') ) );
@@ -208,8 +218,8 @@ class DefaultController extends Controller
 			$user->getTasks()->add($task);
 			$dest_resp = $userManager->findUserBy(array('email'=>$task->getResp()->getEmail()));
 			$dest_resp->getGroupes()->add($task->getGroup());// ajout du groupe au responsable
-			$dest_resp->getTasks()->add($task);// ajout de l'activité au responsable
-		}else{//s'il existe  on modifique seulement le groupe, il est deja attaché a l'utilisateur
+			$dest_resp->getTasks()->add($task);// ajout de l'activitï¿½ au responsable
+		}else{//s'il existe  on modifique seulement le groupe, il est deja attachï¿½ a l'utilisateur
 		$task->setTitre($request->get('titre'));
 		$groupe = $em->getRepository('SMARTASKHomeBundle:Groupe')->find(intval( $request->get('group_id') ) );
 		$resp   = $em->getRepository('SMARTASKUserBundle:User')->find(intval( $request->get('resp_id') ) );
@@ -226,7 +236,7 @@ class DefaultController extends Controller
 		$task->setIsalarmeon($request->get('isalarmeon'));
 		$dest_resp = $userManager->findUserBy(array('email'=>$task->getResp()->getEmail()));
 		$dest_resp->getGroupes()->add($task->getGroup());// ajout du groupe au responsable
-		$dest_resp->getTasks()->add($task);// ajout de l'activité au responsable
+		$dest_resp->getTasks()->add($task);// ajout de l'activitï¿½ au responsable
 		}
 		$em->persist($task);
 		$em->flush();
@@ -240,12 +250,12 @@ class DefaultController extends Controller
 		$user = $userManager->findUserBy(array('id'=>$request->get('user_id')));
 		$repository = $this->getDoctrine()->getManager()->getRepository('SMARTASKHomeBundle:Groupe');
 		$group = $repository->find($request->get('id'));
-		if (!$group){//s'il n'existe pas on le créer et on l'ajoute a l'utilisateur
+		if (!$group){//s'il n'existe pas on le crï¿½er et on l'ajoute a l'utilisateur
 			$group = new Groupe();
 			$group->setNom($request->get('nom'));
 			$group->setdescription($request->get('description'));
 			$user->getGroupes()->add($group);
-		}else{//s'il existe  on modifique seulement le groupe, il est deja attaché a l'utilisateur
+		}else{//s'il existe  on modifique seulement le groupe, il est deja attachï¿½ a l'utilisateur
 			$group->setNom($request->get('nom'));
 			$group->setdescription($request->get('description'));
 		}
@@ -275,7 +285,7 @@ class DefaultController extends Controller
 	{
 		$userManager = $this->container->get('fos_user.user_manager');
 		$user = $userManager->findUserBy(array('id'=>$request->get('user_id')));
-		//$listContacts = $user->getContacts();// on renvoit les taches associées a l'utilisateur
+		//$listContacts = $user->getContacts();// on renvoit les taches associï¿½es a l'utilisateur
 		$userrep = $this->getDoctrine()->getManager()->getRepository('SMARTASKUserBundle:User');
 		$listContacts = $userrep->getRegisteredContactBuilder($user->getId())->getQuery()->getResult();
 		$formatted = [];
@@ -335,7 +345,7 @@ class DefaultController extends Controller
 	}
 	public function activityAction(Request $request)
 	{
-		$user = $this->getUser();// Pour récupérer le service UserManager du bundle
+		$user = $this->getUser();// Pour rï¿½cupï¿½rer le service UserManager du bundle
 		$listTasks = $user->getTasks();
 		return $this->render('SMARTASKHomeBundle:Default:activity.html.twig',array( 'listTasks' => $listTasks ));
 	}
@@ -344,7 +354,7 @@ class DefaultController extends Controller
 	public function taskAction(Request $request)
 	{
 		$logger = $this->container->get('logger');
-		$user = $this->getUser();// Pour récupérer le service UserManager du bundle
+		$user = $this->getUser();// Pour rï¿½cupï¿½rer le service UserManager du bundle
 		$task = new Task();
 		$task->setManager($user);
 		$task->setIsalarmeon(1);
@@ -354,7 +364,7 @@ class DefaultController extends Controller
 			$form->handleRequest($request);
 			if($form->isValid()){
 				$em =$this->getDoctrine()->getManager();
-				$user->getTasks()->add($task);// ajout dans l'activité du decideur
+				$user->getTasks()->add($task);// ajout dans l'activitï¿½ du decideur
 				$userManager = $this->container->get('fos_user.user_manager');
 				$userrep = $this->getDoctrine()->getManager()->getRepository('SMARTASKUserBundle:User');
 				$dest_resp = $userManager->findUserBy(array('email'=>$task->getResp()->getEmail()));
@@ -364,7 +374,7 @@ class DefaultController extends Controller
 						$logger->info('taskAction le user n\'appartient pas au group');
 						$dest_resp->getGroupes()->add($task->getGroup());// ajout du groupe au responsable s'il n'est pas deja dans le groupe
 					}
-					$dest_resp->getTasks()->add($task);// ajout de l'activité au responsable
+					$dest_resp->getTasks()->add($task);// ajout de l'activitï¿½ au responsable
 					$em->persist($task);
 					$em->flush();
 					unset($task);
@@ -384,7 +394,7 @@ class DefaultController extends Controller
 	
     public function groupAction(Request $request)
     {
-    	$user = $this->getUser();// Pour récupérer le service UserManager du bundle
+    	$user = $this->getUser();// Pour rï¿½cupï¿½rer le service UserManager du bundle
     	$group = new Groupe();
     	$form   = $this->get('form.factory')->create(GroupeType::class, $group);
     	
@@ -411,7 +421,7 @@ class DefaultController extends Controller
     public function contactAction(Request $request)
     {
     	
-    	$user = $this->getUser();// Pour récupérer le service UserManager du bundle
+    	$user = $this->getUser();// Pour rï¿½cupï¿½rer le service UserManager du bundle
     	$contact = new Contact();
     	$contact->setUser($user);
     	$form   = $this->get('form.factory')->create(ContactType::class, $contact);
@@ -435,7 +445,7 @@ class DefaultController extends Controller
     	$repository_contact = $em->getRepository('SMARTASKHomeBundle:Contact');
     	$repository_task = $em->getRepository('SMARTASKHomeBundle:Task');
     	$contact = $repository_contact->find($id);
-    	$listtask = $repository_task->findBy(//on supprime les taches associées à ce contact
+    	$listtask = $repository_task->findBy(//on supprime les taches associï¿½es ï¿½ ce contact
     			array('resp' => $contact));
     	foreach ($listtask as $task) {
     		$em->remove($task);;
