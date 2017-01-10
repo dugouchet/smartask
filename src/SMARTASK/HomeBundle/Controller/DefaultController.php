@@ -21,7 +21,6 @@ use SMARTASK\HomeBundle\Form\ContactType;
 
 class DefaultController extends Controller
 {
-
 	
 	public function comments_groupAction($groupId){
 		$em =$this->getDoctrine()->getManager();
@@ -397,8 +396,6 @@ class DefaultController extends Controller
     	$user = $this->getUser();// Pour r�cup�rer le service UserManager du bundle
     	$group = new Groupe();
     	$form   = $this->get('form.factory')->create(GroupeType::class, $group);
-    	
-    	
     	 
     	if ($request->isMethod('POST')){
     		$form->handleRequest($request);
