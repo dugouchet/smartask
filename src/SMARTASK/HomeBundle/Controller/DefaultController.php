@@ -146,7 +146,8 @@ class DefaultController extends Controller
 	
 	}
 	
-	public function deleteContactAPIAction(Request $request){//pas besoin d'utilisateur car la tache a un id unique
+	public function deleteContactAPIAction(Request $request)//API Method
+	{//pas besoin d'utilisateur car la tache a un id unique
 		$em =$this->getDoctrine()->getManager();
 		$resp= $em->getRepository('SMARTASKHomeBundle:Contact')->find(intval( $request->get('resp_id') ) );
 		$listtask = $em->getRepository('SMARTASKHomeBundle:Task')->findBy(array('resp' => $resp));
@@ -156,7 +157,8 @@ class DefaultController extends Controller
 		$em->remove($resp);
 		$em->flush();
 	}
-	public function deleteGroupAPIAction(Request $request){
+	public function deleteGroupAPIAction(Request $request)//API Method
+	{
 		$em =$this->getDoctrine()->getManager();
 		$group= $em->getRepository('SMARTASKHomeBundle:Groupe')->find(intval( $request->get('group_id') ) );
 		$listtask = $em->getRepository('SMARTASKHomeBundle:Task')->findBy(array('group' => $group));
@@ -166,13 +168,14 @@ class DefaultController extends Controller
 		$em->remove($group);
 		$em->flush();
 	}
-	public function deleteTaskAPIAction(Request $request){
+	public function deleteTaskAPIAction(Request $request) // API Method
+	{
 		$em =$this->getDoctrine()->getManager();
 		$task= $em->getRepository('SMARTASKHomeBundle:Task')->find(intval( $request->get('task_id') ) );
 		$em->remove($task);
 		$em->flush();
 	}
-	public function postContactAction(Request $request)
+	public function postContactAction(Request $request)//API Method
 	{
 		$userManager = $this->container->get('fos_user.user_manager');
 		$user = $userManager->findUserBy(array('id'=>$request->get('user_id')));
@@ -191,7 +194,7 @@ class DefaultController extends Controller
 	
 		return $contact;
 	}
-	public function postTaskAction(Request $request)
+	public function postTaskAction(Request $request)// API method
 	{   
 		$userManager = $this->container->get('fos_user.user_manager');
 		$user = $userManager->findUserBy(array('id'=>$request->get('user_id')));
@@ -200,25 +203,8 @@ class DefaultController extends Controller
 		$task = $repository->find($request->get('id'));
 		if (!$task){//s'il n'existe pas on le cr�er et on l'ajoute a l'utilisateur
 			$task = new Task();
-			$task->setTitre($request->get('titre'));
-			$groupe = $em->getRepository('SMARTASKHomeBundle:Groupe')->find(intval( $request->get('group_id') ) );
-			$resp   = $em->getRepository('SMARTASKUserBundle:User')->find(intval( $request->get('resp_id') ) );
-			$manager   = $em->getRepository('SMARTASKUserBundle:User')->find(intval( $request->get('manager_id') ) );
-			$date = new \DateTime($request->get('date'));
-			$time = new \DateTime($request->get('time'));
-			$task->setLocalisation($request->get('localisation'));
-			$task->setGroup($groupe);
-			$task->setResp($resp);
-			$task->setManager($manager);
-			$task->setDate($date);
-			$task->setTime($time);
-			$task->setdescription($request->get('description'));
-			$task->setIsalarmeon($request->get('isalarmeon'));
 			$user->getTasks()->add($task);
-			$dest_resp = $userManager->findUserBy(array('email'=>$task->getResp()->getEmail()));
-			$dest_resp->getGroupes()->add($task->getGroup());// ajout du groupe au responsable
-			$dest_resp->getTasks()->add($task);// ajout de l'activit� au responsable
-		}else{//s'il existe  on modifique seulement le groupe, il est deja attach� a l'utilisateur
+		}
 		$task->setTitre($request->get('titre'));
 		$groupe = $em->getRepository('SMARTASKHomeBundle:Groupe')->find(intval( $request->get('group_id') ) );
 		$resp   = $em->getRepository('SMARTASKUserBundle:User')->find(intval( $request->get('resp_id') ) );
@@ -236,14 +222,13 @@ class DefaultController extends Controller
 		$dest_resp = $userManager->findUserBy(array('email'=>$task->getResp()->getEmail()));
 		$dest_resp->getGroupes()->add($task->getGroup());// ajout du groupe au responsable
 		$dest_resp->getTasks()->add($task);// ajout de l'activit� au responsable
-		}
 		$em->persist($task);
 		$em->flush();
 	
 		return $task;
 	}
 	
-	public function postGroupAction(Request $request)
+	public function postGroupAction(Request $request)//API Method
 	{
 		$userManager = $this->container->get('fos_user.user_manager');
 		$user = $userManager->findUserBy(array('id'=>$request->get('user_id')));
@@ -251,20 +236,18 @@ class DefaultController extends Controller
 		$group = $repository->find($request->get('id'));
 		if (!$group){//s'il n'existe pas on le cr�er et on l'ajoute a l'utilisateur
 			$group = new Groupe();
-			$group->setNom($request->get('nom'));
-			$group->setdescription($request->get('description'));
 			$user->getGroupes()->add($group);
-		}else{//s'il existe  on modifique seulement le groupe, il est deja attach� a l'utilisateur
-			$group->setNom($request->get('nom'));
-			$group->setdescription($request->get('description'));
 		}
+		$group->setNom($request->get('nom'));
+		$group->setdescription($request->get('description'));
 		$em =$this->getDoctrine()->getManager();
 		$em->persist($group);
 		$em->flush();
 		
 		return $group;
 	}
-	public function getUserAction(Request $request){
+	public function getUserAction(Request $request) //API Method
+	{
 		
 		$logger = $this->container->get('logger');
 		$logger->info('getUserAction: '.$request->get('email'));
@@ -280,7 +263,7 @@ class DefaultController extends Controller
 		return new JsonResponse($formatted);
 	}
 	
-	public function getAllContactsAction(Request $request)
+	public function getAllContactsAction(Request $request) //API Method
 	{
 		$userManager = $this->container->get('fos_user.user_manager');
 		$user = $userManager->findUserBy(array('id'=>$request->get('user_id')));
@@ -299,7 +282,7 @@ class DefaultController extends Controller
 		return new JsonResponse($formatted);
 	}
 	
-	public function getAllTasksAction(Request $request)
+	public function getAllTasksAction(Request $request)//API Method
 	{
 	
 		$userManager = $this->container->get('fos_user.user_manager');
@@ -324,7 +307,7 @@ class DefaultController extends Controller
 		return new JsonResponse($formatted);
 	}
 	
-	public function getAllGroupsAction(Request $request)
+	public function getAllGroupsAction(Request $request)//API Method
 	{
 	
 		$userManager = $this->container->get('fos_user.user_manager');
