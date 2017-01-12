@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@SMARTASKAPIBundle/Resources/config/services.yml" }
 fos_comment:
     db_driver: orm
     class:

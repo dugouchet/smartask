@@ -8,5 +8,5 @@ parameters:
     mailer_transport: smtp
     mailer_host: null
     mailer_user: smartask.project@gmail.com
-    mailer_password: !rvD93jWz
+    mailer_password: '!rvD93jWz'
     secret: d5d640a4df1ecd4216fe8d63dca5f1f1c6d43ff2

@@ -1,3 +1,8 @@
+smartaskapi:
+    resource: "@SMARTASKAPIBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 homepage:
     prefix:   /
     path: /
@@ -15,66 +20,66 @@ smartask_listner:
 
 GETuser:
     path:  /getuser_api
-    defaults: { _controller: SMARTASKHomeBundle:Default:getUser, _format: json, _locale: en}
+    defaults: { _controller: SMARTASKAPIBundle:Default:getUser, _format: json, _locale: en}
     requirements:
       _method:  GET
       _format: JSON 
 DELETEcontact:
     path:  /deletecontact_api
-    defaults: { _controller: SMARTASKHomeBundle:Default:deleteContactAPI, _format: json, _locale: en}
+    defaults: { _controller: SMARTASKAPIBundle:Default:deleteContactAPI, _format: json, _locale: en}
     requirements:
       _method:  DELETE
       _format: JSON
       
 DELETEGroup:
     path:  /deletegroup_api
-    defaults: { _controller: SMARTASKHomeBundle:Default:deleteGroupAPI, _format: json, _locale: en}
+    defaults: { _controller: SMARTASKAPIBundle:Default:deleteGroupAPI, _format: json, _locale: en}
     requirements:
       _method:  DELETE
       _format: JSON
       
 DELETETask:
     path:  /deletetask_api
-    defaults: { _controller: SMARTASKHomeBundle:Default:deleteTaskAPI, _format: json, _locale: en}
+    defaults: { _controller: SMARTASKAPIBundle:Default:deleteTaskAPI, _format: json, _locale: en}
     requirements:
       _method:  DELETE
       _format: JSON
       
 POSTcontact:
     path:  /postcontact_api
-    defaults: { _controller: SMARTASKHomeBundle:Default:postContact, _format: json, _locale: en}
+    defaults: { _controller: SMARTASKAPIBundle:Default:postContact, _format: json, _locale: en}
     requirements:
       _method:  POST
       _format: JSON  
       
 POSTtask:
     path:  /posttask_api
-    defaults: { _controller: SMARTASKHomeBundle:Default:postTask, _format: json, _locale: en}
+    defaults: { _controller: SMARTASKAPIBundle:Default:postTask, _format: json, _locale: en}
     requirements:
       _method:  POST
       _format: JSON   
       
 POSTgroup:
     path:  /postgroup_api
-    defaults: { _controller: SMARTASKHomeBundle:Default:postGroup, _format: json, _locale: en}
+    defaults: { _controller: SMARTASKAPIBundle:Default:postGroup, _format: json, _locale: en}
     requirements:
       _method:  POST
       _format: JSON            
 GETcontacts:
     path:  /getcontacts_api
-    defaults: { _controller: SMARTASKHomeBundle:Default:getAllContacts, _format: json, _locale: en}
+    defaults: { _controller: SMARTASKAPIBundle:Default:getAllContacts, _format: json, _locale: en}
     requirements:
       _method:  GET
       _format: JSON  
 GETtasks:
     path:  /gettasks_api
-    defaults: { _controller: SMARTASKHomeBundle:Default:getAllTasks, _format: json, _locale: en}
+    defaults: { _controller: SMARTASKAPIBundle:Default:getAllTasks, _format: json, _locale: en}
     requirements:
       _method:  GET
       _format: JSON 
 GETgroups:
     path:  /getgroups_api
-    defaults: { _controller: SMARTASKHomeBundle:Default:getAllGroups, _format: json, _locale: en}
+    defaults: { _controller: SMARTASKAPIBundle:Default:getAllGroups, _format: json, _locale: en}
     requirements:
       _method:  GET
       _format: JSON 

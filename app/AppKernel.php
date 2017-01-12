@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new SMARTASK\CommentBundle\SMARTASKCommentBundle(),
         	new FOS\CommentBundle\FOSCommentBundle(),
         	new JMS\SerializerBundle\JMSSerializerBundle($this),
+            new SMARTASK\APIBundle\SMARTASKAPIBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
