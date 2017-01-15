@@ -109,6 +109,18 @@ class Groupe
 		$this->users = $users;
 		return $this;
 	}
+	// Notez le singulier, on ajoute une seule catégorie à la fois
+	public function addUser(User $user)
+	{
+		// Ici, on utilise l'ArrayCollection vraiment comme un tableau
+		$this->users[] = $user;
+	}
+	
+	public function removeUser(User $user)
+	{
+		// Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
+		$this->users->removeElement($user);
+	}
 	
 }
 

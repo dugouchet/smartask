@@ -43,12 +43,15 @@ class DefaultController extends Controller
 		return $this->render('SMARTASKHomeBundle:Default:listTaskGroup.html.twig',array('listTasks' => $listTasks,'group' => $group));
 		
 	}
-	public function remove_person_from_group($userId, $groupId){
+	public function remove_person_from_groupAction($userId, $groupId){
 		$em =$this->getDoctrine()->getManager();
 		$group= $em->getRepository('SMARTASKHomeBundle:Groupe')->find( $groupId );
-		$user=$em->getRepository('SMARTASKuserBundle:User')->find( $userId );
-		$group->getUsers()->remove($user);
-		return $this->render('SMARTASKHomeBundle:Default:listMembersGroup.html.twig',array('group' => $group));
+		$user=$em->getRepository('SMARTASKUserBundle:User')->findOneBy(array('id' => $userId));
+		//$group->getUsers()->remove($user);
+		$user->removeGroupe($group);
+		//$group->removeUser($user);
+		$em->flush();
+		return $this->redirectToRoute('list_members_group',array('id' => $groupId));
 	}
 	public function listMembersGroupAction($id){
 		$em =$this->getDoctrine()->getManager();
@@ -65,11 +68,14 @@ class DefaultController extends Controller
 			$emailcontact = $request->get('email');
 			$logger = $this->container->get('logger');
 			$logger->info('addcontactgroupAction email :'.$emailcontact);
-			$addeduser = $em->getRepository('SMARTASKUserBundle:User')->findBy(array('email' => $emailcontact));
+			$addeduser = $em->getRepository('SMARTASKUserBundle:User')->findOneBy(array('email' => $emailcontact));
 			if ($addeduser){
-			    $group->getUsers()->add($addeduser);
+			    $addeduser->getGroupes()->add($group);
 			    $logger->info('addcontactgroupAction user ajout�');
-			    return $this->render('SMARTASKHomeBundle:Default:detailgroup.html.twig',array('group' => $group));
+			    $em->persist($group);
+			    $em->persist($addeduser);
+			    $em->flush();
+			    return $this->redirectToRoute('add_contact_group',array('id' => $id));
 			}else{
 				return $this->render('SMARTASKHomeBundle:Default:error.html.twig',array('msg' => "L'utilisateur n'est pas encore enregistre"));
 			}
@@ -169,14 +175,19 @@ class DefaultController extends Controller
 			if($form->isValid()){
 				$em =$this->getDoctrine()->getManager();
 				$user->getTasks()->add($task);// ajout dans l'activit� du decideur
-				$userManager = $this->container->get('fos_user.user_manager');
 				$userrep = $this->getDoctrine()->getManager()->getRepository('SMARTASKUserBundle:User');
-				$dest_resp = $userManager->findUserBy(array('email'=>$task->getResp()->getEmail()));
+				$dest_resp = $userrep->findOneBy(array('email'=>$task->getResp()->getEmail()));
+				$logger->info('taskAction email :'.$task->getResp()->getEmail());
+				$logger->info('taskAction email :'.$dest_resp->getEmail());
 				if ($dest_resp){ // s'il l'uutilisateur est bien inscrit on lui envoit la tache sinon rien
-					if ( !$userrep->isUserBelongToGroup($task->getGroup()->getId(),$dest_resp->getId()) ){
+					if($task->getGroup()){//s'il y a un groupe de defini
+					    if ( !$userrep->isUserBelongToGroup($task->getGroup()->getId(),$dest_resp->getId()) ){
+						    $logger->info('taskAction le user n\'appartient pas au group');
+						    $dest_resp->getGroupes()->add($task->getGroup());// ajout du groupe au responsable s'il n'est pas deja dans le groupe
+					    }
+					}else{
+				        return $this->render('SMARTASKHomeBundle:Default:error.html.twig',array('msg' => "Vous devez renseigner ou créer un groupe"));
 						
-						$logger->info('taskAction le user n\'appartient pas au group');
-						$dest_resp->getGroupes()->add($task->getGroup());// ajout du groupe au responsable s'il n'est pas deja dans le groupe
 					}
 					$dest_resp->getTasks()->add($task);// ajout de l'activit� au responsable
 					$em->persist($task);

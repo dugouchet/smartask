@@ -57,6 +57,18 @@ class User extends BaseUser
 		$this->groupes = $groupes;
 		return $this;
 	}
+	// Notez le singulier, on ajoute une seule catégorie à la fois
+	public function addGroupe(Groupe $group)
+	{
+		// Ici, on utilise l'ArrayCollection vraiment comme un tableau
+		$this->groupes[] = $group;
+	}
+	
+	public function removeGroupe(Groupe $group)
+	{
+		// Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
+		$this->groupes->removeElement($group);
+	}
 	public function getTasks() {
 		return $this->tasks;
 	}
