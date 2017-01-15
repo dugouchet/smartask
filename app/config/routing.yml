@@ -88,7 +88,7 @@ smartask_activity_accueil:
     defaults:
         _controller: SMARTASKHomeBundle:Default:accueil
 login:
-    path: /accueil
+    path: /
 login_check:
     path: /login_check
 logout:

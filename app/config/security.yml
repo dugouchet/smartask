@@ -27,7 +27,7 @@ security:
                 default_target_path:            /activite
             logout:
                 path: /logout
-                target: /accueil
+                target: /
                 invalidate_session: false
     encoders :
         SMARTASK\UserBundle\Entity\User: plaintext
