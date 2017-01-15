@@ -1,7 +1,9 @@
 {% extends "SMARTASKHomeBundle:Default:home.html.twig" %}
 {%block tile%}{{ parent() }} - Activity{% endblock %}
 {% block body %}
-
+{% if nbtask == 0 %}
+<h3>Il n'y a pas encore de tache ... pour cela créez des contacts et des groupes</h3>
+{% else %}
 <div class="container">
   <h2>Liste des taches</h2>          
   <table class="table table-condensed">
@@ -34,4 +36,5 @@
     </tbody>
   </table>
 </div>
+{% endif %}
 {% endblock %}

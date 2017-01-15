@@ -40,7 +40,8 @@ class DefaultController extends Controller
 		$em =$this->getDoctrine()->getManager();
 		$group= $em->getRepository('SMARTASKHomeBundle:Groupe')->find( $id );
 		$listTasks = $em->getRepository('SMARTASKHomeBundle:Task')->findBy(array('group' => $group));
-		return $this->render('SMARTASKHomeBundle:Default:listTaskGroup.html.twig',array('listTasks' => $listTasks,'group' => $group));
+		$nbtask = count($listTasks);
+		return $this->render('SMARTASKHomeBundle:Default:listTaskGroup.html.twig',array('listTasks' => $listTasks,'group' => $group,'nbtask'=>$nbtask));
 		
 	}
 	public function remove_person_from_groupAction($userId, $groupId){
@@ -157,7 +158,8 @@ class DefaultController extends Controller
 	{
 		$user = $this->getUser();// Pour r�cup�rer le service UserManager du bundle
 		$listTasks = $user->getTasks();
-		return $this->render('SMARTASKHomeBundle:Default:activity.html.twig',array( 'listTasks' => $listTasks ));
+		$nbtask = count($listTasks);
+		return $this->render('SMARTASKHomeBundle:Default:activity.html.twig',array( 'listTasks' => $listTasks,'nbtask'=>$nbtask ));
 	}
 	
 	
@@ -168,6 +170,8 @@ class DefaultController extends Controller
 		$task = new Task();
 		$task->setManager($user);
 		$task->setIsalarmeon(1);
+		$task->setDate(new \DateTime("now"));
+		$task->setTime(new \DateTime("now"));
 		$form   = $this->get('form.factory')->create(TaskType::class, $task);
 	
 		if ($request->isMethod('POST')){//s'il l'utilisateur veut enregistrer sa tache

@@ -1,5 +1,8 @@
 {% extends "SMARTASKHomeBundle:Default:detailgroup.html.twig" %}
 {% block content %}
+{% if nbtask == 0 %}
+<h2>Il n'y a pas encore de tache ...</h2>
+{% else %}
 <div class="container">
   <h2>Liste des taches</h2>          
   <table class="list-group">
@@ -32,4 +35,5 @@
     </tbody>
   </table>
 </div>
+{% endif %}
 {% endblock %}

@@ -31,6 +31,7 @@ class TaskType extends AbstractType
         ->add('resp'            , EntityType::class,array(
         		'class'    	    =>'SMARTASKUserBundle:User',
         		'choice_label'	=>'username',
+        		'label'         =>'Responsable',
         		'multiple'	    =>false,
         		'query_builder' => function(UserRepository $repo) use($userid ) {
         		return $repo->getRegisteredContactBuilder($userid);
@@ -40,6 +41,7 @@ class TaskType extends AbstractType
         		'class'    	    =>'SMARTASKHomeBundle:Groupe',
         		'choices'       => $user->getGroupes(),
         		'choice_label'	=>'nom',
+        		'label'         =>'Groupe',
         		'multiple'	    =>false,
         ))
         	
