@@ -1,14 +1,14 @@
 <?php
 
-namespace SMARTASK\ListnerBundle\Controller;
+namespace SMARTASK\HomeBundle\EventListner;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use FOS\UserBundle\FOSUserEvents;
 
-class DefaultController implements EventSubscriberInterface
+
+class RegistrationConfirmedListner implements EventSubscriberInterface
 {
 	private $router;
 

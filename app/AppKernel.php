@@ -19,7 +19,6 @@ class AppKernel extends Kernel
             new SMARTASK\UserBundle\SMARTASKUserBundle(),
             new SMARTASK\HomeBundle\SMARTASKHomeBundle(),
         	new FOS\RestBundle\FOSRestBundle(),
-            new SMARTASK\ListnerBundle\SMARTASKListnerBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new SMARTASK\CommentBundle\SMARTASKCommentBundle(),
         	new FOS\CommentBundle\FOSCommentBundle(),

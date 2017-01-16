@@ -1,3 +1,0 @@
-smartask_listner_homepage:
-    path:     /
-    defaults: { _controller: SMARTASKListnerBundle:Default:index }

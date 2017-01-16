@@ -1,4 +1,0 @@
-services:
-#    smartask_listner.example:
-#        class: SMARTASK\ListnerBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]

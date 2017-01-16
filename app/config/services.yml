@@ -5,7 +5,7 @@ parameters:
 
 services:
     redirect_register_user.registration.completed:
-        class: SMARTASK\ListnerBundle\Controller\DefaultController
+        class: SMARTASK\HomeBundle\EventListner\RegistrationConfirmedListner
         arguments: ["@router"]
         tags:
             - { name: kernel.event_subscriber }

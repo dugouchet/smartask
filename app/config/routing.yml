@@ -15,9 +15,6 @@ fos_comment_api:
 smartask_comment:
     resource: "@SMARTASKCommentBundle/Resources/config/routing.xml"
 
-smartask_listner:
-    resource: "@SMARTASKListnerBundle/Resources/config/routing.yml"
-
 GETuser:
     path:  /getuser_api
     defaults: { _controller: SMARTASKAPIBundle:Default:getUser, _format: json, _locale: en}
