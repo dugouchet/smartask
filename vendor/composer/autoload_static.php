@@ -65,6 +65,11 @@ class ComposerStaticInit63f546b4e8095c4c45b0ddc9a60a6def
         array (
             'FOS\\UserBundle\\' => 15,
             'FOS\\RestBundle\\' => 15,
+            'FOS\\ElasticaBundle\\' => 19,
+        ),
+        'E' => 
+        array (
+            'Elastica\\' => 9,
         ),
         'D' => 
         array (
@@ -181,6 +186,14 @@ class ComposerStaticInit63f546b4e8095c4c45b0ddc9a60a6def
         'FOS\\RestBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/friendsofsymfony/rest-bundle',
+        ),
+        'FOS\\ElasticaBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofsymfony/elastica-bundle',
+        ),
+        'Elastica\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ruflin/elastica/lib/Elastica',
         ),
         'Doctrine\\Instantiator\\' => 
         array (

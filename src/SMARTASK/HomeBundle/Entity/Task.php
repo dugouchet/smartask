@@ -4,11 +4,12 @@ namespace SMARTASK\HomeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use SMARTASK\UserBundle\Entity\User ;
-
+use FOS\ElasticaBundle\Configuration\Search;
 /**
  * Task
  *
  * @ORM\Table(name="task")
+ * @Search(repositoryClass="SMARTASK\HomeBundle\Repository\TaskRepository")
  * @ORM\Entity(repositoryClass="SMARTASK\HomeBundle\Repository\TaskRepository")
  */
 class Task

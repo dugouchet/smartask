@@ -3,6 +3,43 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@SMARTASKAPIBundle/Resources/config/services.yml" }
+fos_elastica:
+    clients:
+        default: { host: "%database_host%", port: "%database_port%" }
+    serializer:
+        callback_class: FOS\ElasticaBundle\Serializer\Callback
+        serializer: serializer
+    indexes:
+        app:
+            client: default
+            types:
+                task:
+                    mappings:
+                        titre: ~
+                        description: ~
+                        localisation: ~
+                    persistence:
+                        driver: orm # orm, mongodb, propel are available
+                        model:  SMARTASK\HomeBundle\Entity\Task
+                        provider: ~
+                        listener: ~
+                        finder: ~
+
+                user:
+                    mappings:
+                        username: ~
+                        firstName: ~
+                        lastName: ~
+                        email: ~
+                    persistence:
+                        # the driver can be orm, mongodb, phpcr or propel
+                        # listener and finder are not supported by
+                        # propel and should be removed
+                        driver: orm
+                        model: SMARTASK\UserBundle\Entity\User
+                        provider: ~
+                        listener: ~
+                        finder: ~
 fos_comment:
     db_driver: orm
     class:

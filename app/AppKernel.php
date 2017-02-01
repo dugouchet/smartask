@@ -24,6 +24,7 @@ class AppKernel extends Kernel
         	new FOS\CommentBundle\FOSCommentBundle(),
         	new JMS\SerializerBundle\JMSSerializerBundle($this),
             new SMARTASK\APIBundle\SMARTASKAPIBundle(),
+        	new FOS\ElasticaBundle\FOSElasticaBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

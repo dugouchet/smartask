@@ -16,6 +16,7 @@ return array(
     'JMS\\Serializer' => array($vendorDir . '/jms/serializer/src'),
     'JMS\\' => array($vendorDir . '/jms/parser-lib/src'),
     'FOS\\CommentBundle' => array($vendorDir . '/friendsofsymfony/comment-bundle'),
+	'FOS\\ElasticaBundle' => array($vendorDir . '/friendsofsymfony/elastica-bundle'),
     'Doctrine\\ORM\\' => array($vendorDir . '/doctrine/orm/lib'),
     'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/lib'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/lib'),

@@ -12,22 +12,44 @@ use SMARTASK\HomeBundle\Entity\Task;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\Time;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use SMARTASK\UserBundle\Entity\User ;
+use SMARTASK\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use SMARTASK\HomeBundle\Form\TaskType;
 use SMARTASK\HomeBundle\Form\GroupeType;
 use SMARTASK\HomeBundle\Form\ContactType;
 
-class DefaultController extends Controller
-{
+class DefaultController extends Controller {
+	
+	public function findtaskAction(Request $request) {
+		$logger = $this->container->get ( 'logger' );
+		$logger->info ( 'findtask' );
+		// je v�rifie si elle est de type POST
+		if ($request->isMethod('POST'))
+		{
+			$logger->info('findtask POST');
+			$keyword = $request->get('keyword');
+			$logger->info('findtask $keyword : '.$keyword);			
+			$finder = $this->container->get('fos_elastica.finder.app.task');
+			$results = $finder->find($keyword);
+			
+			foreach($results as $task)	{
+			    $logger->info('findtask result'.$task->getTitre());
+			}
+		}
+
+		$user = $this->getUser();// Pour r�cup�rer le service UserManager du bundle
+		$listTasks = $user->getTasks();
+		$nbtask = count($listTasks);
+		return $this->render('SMARTASKHomeBundle:Default:activity.html.twig',array( 'listTasks' => $listTasks,'nbtask'=>$nbtask ));	
+	}
 	
 	public function comments_groupAction($groupId){
 		$em =$this->getDoctrine()->getManager();
 		$group= $em->getRepository('SMARTASKHomeBundle:Groupe')->find( $groupId );
 		return $this->render('SMARTASKHomeBundle:Default:commentsGroup.html.twig',array('group' => $group));
-		
 	}
+	
 	public function deleteTaskGroupAction($taskId, $groupId){
 		$em =$this->getDoctrine()->getManager();
 		$task = $em->getRepository('SMARTASKHomeBundle:Task')->find($taskId);
@@ -42,15 +64,12 @@ class DefaultController extends Controller
 		$listTasks = $em->getRepository('SMARTASKHomeBundle:Task')->findBy(array('group' => $group));
 		$nbtask = count($listTasks);
 		return $this->render('SMARTASKHomeBundle:Default:listTaskGroup.html.twig',array('listTasks' => $listTasks,'group' => $group,'nbtask'=>$nbtask));
-		
 	}
 	public function remove_person_from_groupAction($userId, $groupId){
 		$em =$this->getDoctrine()->getManager();
 		$group= $em->getRepository('SMARTASKHomeBundle:Groupe')->find( $groupId );
 		$user=$em->getRepository('SMARTASKUserBundle:User')->findOneBy(array('id' => $userId));
-		//$group->getUsers()->remove($user);
 		$user->removeGroupe($group);
-		//$group->removeUser($user);
 		$em->flush();
 		return $this->redirectToRoute('list_members_group',array('id' => $groupId));
 	}
@@ -89,7 +108,6 @@ class DefaultController extends Controller
 		$em =$this->getDoctrine()->getManager();
 		$group= $em->getRepository('SMARTASKHomeBundle:Groupe')->find( $id );
 		return $this->render('SMARTASKHomeBundle:Default:detailgroup.html.twig',array('group' => $group));
-	
 	}
 	/**
 	 * @Route("/")
@@ -145,12 +163,9 @@ class DefaultController extends Controller
 		// last username entered by the user
 		$lastUsername = (null === $session) ? '' : $session->get($lastUsernameKey);
 	
-		$csrfToken = $this->has('security.csrf.token_manager')
-		? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue()
-		: null;
-		return $this->render('SMARTASKHomeBundle:Default:accueil.html.twig',array('last_username' => $lastUsername,
-				'error' => $error,'csrf_token' => $csrfToken));
-	
+		$csrfToken = $this->has('security.csrf.token_manager') ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue(): null;
+		
+		return $this->render('SMARTASKHomeBundle:Default:accueil.html.twig',array('last_username' => $lastUsername,'error' => $error,'csrf_token' => $csrfToken));
 	}
 	
 
@@ -203,7 +218,9 @@ class DefaultController extends Controller
 					return $this->render('SMARTASKHomeBundle:Default:error.html.twig',array('msg' => "L'utilisateur n'est pas encore enregistre"));
 					//return new Response("The User is not registered yet ..");
 				}
-				return $this->render('SMARTASKHomeBundle:Default:activity.html.twig',array('listTasks' => $user->getTasks() ));
+				$listTasks = $user->getTasks();
+				$nbtask = count($listTasks);
+				return $this->render('SMARTASKHomeBundle:Default:activity.html.twig',array('listTasks' => $user->getTasks(),'nbtask'=>$nbtask  ));
 			}
 		}
 		$listTasks = $user->getTasks();

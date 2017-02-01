@@ -37,4 +37,21 @@
   </table>
 </div>
 {% endif %}
+<div class="container">
+	<div class="row">
+        <div class="col-md-6">
+    		<h2>Chercher une tâche :</h2>
+              <div id="custom-search-input">
+                <form class="input-group col-md-12"method='POST' action='{{ path('findtask') }}'>
+                    <input type="text" class="form-control input-lg" placeholder="mots clés" name=keyword />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="input">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </form>
+            </div>
+        </div>
+	</div>
+</div>
 {% endblock %}

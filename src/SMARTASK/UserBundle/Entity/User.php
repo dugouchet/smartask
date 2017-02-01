@@ -7,11 +7,13 @@ use FOS\UserBundle\Model\User as BaseUser;
 use SMARTASK\HomeBundle\Entity\Task ;
 use SMARTASK\HomeBundle\Entity\Groupe ;
 use SMARTASK\HomeBundle\Entity\Contact ;
+use FOS\ElasticaBundle\Configuration\Search;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
+ *  * @Search(repositoryClass="SMARTASK\UserBundle\Repository\UserRepository")
  * @ORM\Entity(repositoryClass="SMARTASK\UserBundle\Repository\UserRepository")
  */
 class User extends BaseUser

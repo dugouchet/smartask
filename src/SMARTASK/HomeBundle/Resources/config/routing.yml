@@ -1,3 +1,6 @@
+findtask:
+    path:     /activite
+    defaults: { _controller: SMARTASKHomeBundle:Default:findtask }
 smartask_delete_contact:
     path:     /contact/{id}
     defaults: { _controller: SMARTASKHomeBundle:Default:deleteContact }

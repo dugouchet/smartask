@@ -14,20 +14,22 @@ class DefaultController extends Controller
 {
 	public function deleteContactAPIAction(Request $request)//API Method
 	{//pas besoin d'utilisateur car la tache a un id unique
-	$em =$this->getDoctrine()->getManager();
-	$resp= $em->getRepository('SMARTASKHomeBundle:Contact')->find(intval( $request->get('resp_id') ) );
-	$listtask = $em->getRepository('SMARTASKHomeBundle:Task')->findBy(array('resp' => $resp));
-	foreach ($listtask as $task) {
-		$em->remove($task);
-	}
-	$em->remove($resp);
-	$em->flush();
+	    $em =$this->getDoctrine()->getManager();
+		$resp= $em->getRepository('SMARTASKHomeBundle:Contact')->find(intval( $request->get('resp_id') ) );
+		$listtask = $em->getRepository('SMARTASKHomeBundle:Task')->findBy(array('resp' => $resp));
+		
+		foreach ($listtask as $task) {
+			$em->remove($task);
+		}
+		$em->remove($resp);
+		$em->flush();
 	}
 	public function deleteGroupAPIAction(Request $request)//API Method
 	{
 		$em =$this->getDoctrine()->getManager();
 		$group= $em->getRepository('SMARTASKHomeBundle:Groupe')->find(intval( $request->get('group_id') ) );
 		$listtask = $em->getRepository('SMARTASKHomeBundle:Task')->findBy(array('group' => $group));
+		
 		foreach ($listtask as $task) {
 			$em->remove($task);
 		}
@@ -67,6 +69,7 @@ class DefaultController extends Controller
 		$repository = $this->getDoctrine()->getManager()->getRepository('SMARTASKHomeBundle:Task');
 		$em =$this->getDoctrine()->getManager();
 		$task = $repository->find($request->get('id'));
+		
 		if (!$task){//s'il n'existe pas on le cr�er et on l'ajoute a l'utilisateur
 			$task = new Task();
 			$user->getTasks()->add($task);
@@ -90,6 +93,7 @@ class DefaultController extends Controller
 		$dest_resp->getTasks()->add($task);// ajout de l'activit� au responsable
 		$em->persist($task);
 		$em->flush();
+		
 		return $task;
 	}
 	
@@ -108,6 +112,7 @@ class DefaultController extends Controller
 		$em =$this->getDoctrine()->getManager();
 		$em->persist($group);
 		$em->flush();
+		
 		return $group;
 	}
 	public function getUserAction(Request $request) //API Method
@@ -124,6 +129,7 @@ class DefaultController extends Controller
 				'email' => $user->getEmail(),
 				'password'=>$user->getPassword(),
 		];
+		
 		return new JsonResponse($formatted);
 	}
 	
@@ -135,6 +141,7 @@ class DefaultController extends Controller
 		$userrep = $this->getDoctrine()->getManager()->getRepository('SMARTASKUserBundle:User');
 		$listContacts = $userrep->getRegisteredContactBuilder($user->getId())->getQuery()->getResult();
 		$formatted = [];
+		
 		foreach ($listContacts as $contact) {
 			$formatted[] = [
 					'id' => $contact->getId(),
@@ -152,6 +159,7 @@ class DefaultController extends Controller
 		$user = $userManager->findUserBy(array('id'=>$request->get('user_id')));
 		$listTasks = $user->getTasks();
 		$formatted = [];
+		
 		foreach ($listTasks as $task) {
 			$formatted[] = [
 					'id'  => $task->getId(),
@@ -166,17 +174,16 @@ class DefaultController extends Controller
 					'isalarmeon' => $task->getIsalarmeon(),
 			];
 		}
-	
 		return new JsonResponse($formatted);
 	}
 	
 	public function getAllGroupsAction(Request $request)//API Method
 	{
-	
 		$userManager = $this->container->get('fos_user.user_manager');
 		$user = $userManager->findUserBy(array('id'=>$request->get('user_id')));
 		$listGroups = $user->getGroupes();
 		$formatted = [];
+		
 		foreach ($listGroups as $group) {
 			$formatted[] = [
 					'id'   =>$group->getId(),
@@ -185,7 +192,6 @@ class DefaultController extends Controller
 					'description' => $group->getDescription(),
 			];
 		}
-	
 		return new JsonResponse($formatted);
 	}
 }
