@@ -4,6 +4,7 @@ namespace SMARTASK\HomeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use SMARTASK\UserBundle\Entity\User ;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Groupe
@@ -34,6 +35,8 @@ class Groupe
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=5)
      */
     private $nom;
 

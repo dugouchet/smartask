@@ -5,6 +5,7 @@ namespace SMARTASK\HomeBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use SMARTASK\UserBundle\Entity\User ;
 use FOS\ElasticaBundle\Configuration\Search;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Task
  *
@@ -33,6 +34,8 @@ class Task
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255, unique=true)
+     * @Assert\Length(min=5)
+     * @Assert\NotBlank()
      */
     private $titre;
 
@@ -47,6 +50,7 @@ class Task
      * One Task has One Groupe.
      * @ORM\ManyToOne(targetEntity="SMARTASK\HomeBundle\Entity\Groupe")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
+     * @Assert\NotBlank()
      */
     private $group;
 
@@ -54,6 +58,7 @@ class Task
      * One Task has One resp.
      * @ORM\ManyToOne(targetEntity="SMARTASK\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="resp_id", referencedColumnName="id")
+     * @Assert\NotBlank()
      */
     private $resp;
     
@@ -61,6 +66,7 @@ class Task
      * One Task has One Manager.
      * @ORM\ManyToOne(targetEntity="SMARTASK\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="manager_id", referencedColumnName="id")
+     * @Assert\NotBlank()
      */
     private $manager;
 
@@ -75,6 +81,7 @@ class Task
      * @var time
      *
      * @ORM\Column(name="time", type="time", nullable=true)
+     * @Assert\DateTime()
      */
     private $time;
 
