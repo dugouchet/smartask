@@ -170,10 +170,7 @@ class DefaultController extends Controller {
 		
 		$response->setSharedMaxAge(3600);
 		
-		return  $response ;
-		
-		//return $this->render('SMARTASKHomeBundle:Default:accueil.html.twig',array('last_username' => $lastUsername,'error' => $error,'csrf_token' => $csrfToken));
-		
+		return  $response ;		
 	}
 	
 
