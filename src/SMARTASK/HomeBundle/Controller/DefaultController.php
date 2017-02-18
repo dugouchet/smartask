@@ -164,8 +164,16 @@ class DefaultController extends Controller {
 		$lastUsername = (null === $session) ? '' : $session->get($lastUsernameKey);
 	
 		$csrfToken = $this->has('security.csrf.token_manager') ? $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue(): null;
+
+		//add cache
+		$response = $this->render('SMARTASKHomeBundle:Default:accueil.html.twig',array('last_username' => $lastUsername,'error' => $error,'csrf_token' => $csrfToken));
 		
-		return $this->render('SMARTASKHomeBundle:Default:accueil.html.twig',array('last_username' => $lastUsername,'error' => $error,'csrf_token' => $csrfToken));
+		$response->setSharedMaxAge(3600);
+		
+		return  $response ;
+		
+		//return $this->render('SMARTASKHomeBundle:Default:accueil.html.twig',array('last_username' => $lastUsername,'error' => $error,'csrf_token' => $csrfToken));
+		
 	}
 	
 
