@@ -31,7 +31,8 @@ class ContactType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'SMARTASK\HomeBundle\Entity\Contact'
+            'data_class' => 'SMARTASK\HomeBundle\Entity\Contact',
+        	'csrf_protection' => false
         ));
     }
 

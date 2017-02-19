@@ -28,7 +28,8 @@ class GroupeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'SMARTASK\HomeBundle\Entity\Groupe'
+            'data_class' => 'SMARTASK\HomeBundle\Entity\Groupe',
+        	'csrf_protection' => false
         ));
     }
 

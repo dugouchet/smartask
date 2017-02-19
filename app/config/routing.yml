@@ -1,8 +1,3 @@
-smartaskapi:
-    resource: "@SMARTASKAPIBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 homepage:
     prefix:   /
     path: /
@@ -15,71 +10,22 @@ fos_comment_api:
 smartask_comment:
     resource: "@SMARTASKCommentBundle/Resources/config/routing.xml"
 
-GETuser:
-    path:  /getuser_api
-    defaults: { _controller: SMARTASKAPIBundle:Default:getUser, _format: json, _locale: en}
-    requirements:
-      _method:  GET
-      _format: JSON 
-DELETEcontact:
-    path:  /deletecontact_api
-    defaults: { _controller: SMARTASKAPIBundle:Default:deleteContactAPI, _format: json, _locale: en}
-    requirements:
-      _method:  DELETE
-      _format: JSON
-      
-DELETEGroup:
-    path:  /deletegroup_api
-    defaults: { _controller: SMARTASKAPIBundle:Default:deleteGroupAPI, _format: json, _locale: en}
-    requirements:
-      _method:  DELETE
-      _format: JSON
-      
-DELETETask:
-    path:  /deletetask_api
-    defaults: { _controller: SMARTASKAPIBundle:Default:deleteTaskAPI, _format: json, _locale: en}
-    requirements:
-      _method:  DELETE
-      _format: JSON
-      
-POSTcontact:
-    path:  /postcontact_api
-    defaults: { _controller: SMARTASKAPIBundle:Default:postContact, _format: json, _locale: en}
-    requirements:
-      _method:  POST
-      _format: JSON  
-      
-POSTtask:
-    path:  /posttask_api
-    defaults: { _controller: SMARTASKAPIBundle:Default:postTask, _format: json, _locale: en}
-    requirements:
-      _method:  POST
-      _format: JSON   
-      
-POSTgroup:
-    path:  /postgroup_api
-    defaults: { _controller: SMARTASKAPIBundle:Default:postGroup, _format: json, _locale: en}
-    requirements:
-      _method:  POST
-      _format: JSON            
-GETcontacts:
-    path:  /getcontacts_api
-    defaults: { _controller: SMARTASKAPIBundle:Default:getAllContacts, _format: json, _locale: en}
-    requirements:
-      _method:  GET
-      _format: JSON  
-GETtasks:
-    path:  /gettasks_api
-    defaults: { _controller: SMARTASKAPIBundle:Default:getAllTasks, _format: json, _locale: en}
-    requirements:
-      _method:  GET
-      _format: JSON 
-GETgroups:
-    path:  /getgroups_api
-    defaults: { _controller: SMARTASKAPIBundle:Default:getAllGroups, _format: json, _locale: en}
-    requirements:
-      _method:  GET
-      _format: JSON 
+contacts:
+    type:     rest
+    resource: "@SMARTASKAPIBundle/Controller/ContactController.php"
+users:
+    type:     rest
+    resource: "@SMARTASKAPIBundle/Controller/UserController.php"    
+groups:
+    type:     rest
+    resource: "@SMARTASKAPIBundle/Controller/GroupeController.php" 
+tasks:
+    type:     rest
+    resource: "@SMARTASKAPIBundle/Controller/TaskController.php"          
+#api:
+#    type:     rest
+#    resource: "@SMARTASKAPIBundle/Controller/DefaultController.php"
+     
 smartask_activity_accueil:
     path: /accueil
     defaults:

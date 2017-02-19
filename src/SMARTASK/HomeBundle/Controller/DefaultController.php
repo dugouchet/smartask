@@ -167,7 +167,7 @@ class DefaultController extends Controller {
 
 		//add cache
 		$response = $this->render('SMARTASKHomeBundle:Default:accueil.html.twig',array('last_username' => $lastUsername,'error' => $error,'csrf_token' => $csrfToken));
-		
+		$response->setPublic();	
 		$response->setSharedMaxAge(3600);
 		
 		return  $response ;		
