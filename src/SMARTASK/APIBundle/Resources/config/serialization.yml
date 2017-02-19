@@ -1,0 +1,52 @@
+SMARTASKUserBundle\Entity\User:
+    attributes:
+        id:
+            groups: ['user', 'contact', 'group', 'task']
+        username:
+            groups: ['user', 'contact', 'group', 'task']
+        email:
+            groups: ['user', 'contact', 'group', 'task']
+        contacts:
+            groups: ['user']
+        groupes:
+            groups: ['user']    
+        tasks:
+            groups: ['user']    
+
+
+SMARTASKHomeBundle\Entity\Contact:
+    attributes:
+        id:
+            groups: ['user', 'contact', 'group', 'task']
+        name:
+            groups: ['user', 'contact', 'group', 'task']
+        user:
+            groups: ['contact']
+            
+SMARTASKHomeBundle\Entity\Groupe:
+    attributes:
+        id:
+            groups: ['user', 'contact', 'group', 'task']
+        nom:
+            groups: ['user', 'contact', 'group', 'task']
+        description:
+            groups: ['user', 'contact', 'group', 'task']    
+        users:
+            groups: ['group']
+            
+SMARTASKHomeBundle\Entity\Task:
+    attributes:
+        id:
+            groups: ['user', 'contact', 'group', 'task']
+        titre:
+            groups: ['user', 'contact', 'group', 'task']
+        localisation:
+            groups: ['user', 'contact', 'group', 'task']    
+        users:
+            groups: ['task']   
+        group:
+            groups: ['task'] 
+        resp:
+            groups: ['task']
+        user:
+            groups: ['task']                                   
