@@ -40,7 +40,7 @@ class UserController extends Controller
 			// le mot de passe en claire est encodé avant la sauvegarde
 			$user->setUsername($request->get('username'));
 			$user->setEmail($request->get('email'));
-			$user->setPassword( ($request->get('Plainpassword') ));// A modifier par la suite
+			$user->setPassword( ($request->get('plainpassword') ));// A modifier par la suite et rajouter la transformarion du mdp
 	
 			$em = $this->get('doctrine.orm.entity_manager');
 			$em->persist($user);

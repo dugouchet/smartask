@@ -34,7 +34,8 @@
 		"incenteev/composer-parameter-handler" : "^2.0",
 		"symfony/assetic-bundle" : "^2.8",
 		"friendsofsymfony/comment-bundle" : "^2.0.9",
-		"friendsofsymfony/elastica-bundle" : "v3.2.1"
+		"friendsofsymfony/elastica-bundle" : "v3.2.1",
+		"guzzlehttp/guzzle": "^6.2"
 	},
 	"require-dev" : {
 		"sensio/generator-bundle" : "^3.0",
