@@ -1,0 +1,25 @@
+SMARTASK\HomeBundle\Entity\Task:
+    exclusion_policy: none
+    properties:
+        id:
+            groups: ['user', 'contact', 'group', 'task']
+        titre:
+            groups: ['user', 'contact', 'group', 'task']
+        localisation:
+            groups: ['user', 'contact', 'group', 'task']
+        isalarmeon:
+            groups: ['user', 'contact', 'group', 'task']
+        description:
+            groups: ['user', 'contact', 'group', 'task']
+        date:
+            groups: ['user', 'contact', 'group', 'task']
+        time:
+            groups: ['user', 'contact', 'group', 'task']                    
+        users:
+            groups: ['task'] 
+        manager:
+            groups: ['task']      
+        resp:
+            groups: ['task'] 
+        grroup:
+            groups: ['task']                            

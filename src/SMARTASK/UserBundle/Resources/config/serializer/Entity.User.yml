@@ -1,0 +1,33 @@
+SMARTASK\UserBundle\Entity\User:
+    exclusion_policy: none
+    properties:
+        id:
+            groups: ['user', 'contact', 'group', 'task', 'auth-token']
+        username:
+            groups: ['user', 'contact', 'group', 'task', 'auth-token']
+        username_canonical:
+            groups: ['user', 'contact', 'group', 'task', 'auth-token']
+        email:
+            groups: ['user', 'contact', 'group', 'task', 'auth-token']
+        email_canocical:
+            groups: ['user', 'contact', 'group', 'task', 'auth-token']
+        enable:
+            groups: ['user', 'contact', 'group', 'task', 'auth-token']
+        salt:
+            groups: ['user', 'contact', 'group', 'task', 'auth-token']
+        password:
+            groups: ['user', 'contact', 'group', 'task', 'auth-token']
+        last_login:
+            groups: ['user', 'contact', 'group', 'task', 'auth-token']
+        confirmation_token:
+            groups: ['user', 'contact', 'group', 'task', 'auth-token']
+        password_requested_at:
+            groups: ['user', 'contact', 'group', 'task', 'auth-token']
+        roles:
+            groups: ['user', 'contact', 'group', 'task', 'auth-token']                                    
+        contacts:
+            groups: ['user']
+        groupes:
+            groups: ['user']    
+        tasks:
+            groups: ['user']

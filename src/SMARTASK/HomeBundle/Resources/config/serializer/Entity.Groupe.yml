@@ -1,0 +1,12 @@
+SMARTASK\HomeBundle\Entity\Groupe:
+    exclusion_policy: none
+    properties:
+        id:
+            groups: ['user', 'contact', 'group', 'task']
+        nom:
+            groups: ['user', 'contact', 'group', 'task']
+        description:
+            groups: ['user', 'contact', 'group', 'task']    
+        users:
+            groups: ['group']
+                     

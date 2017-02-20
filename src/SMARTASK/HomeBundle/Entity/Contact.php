@@ -21,7 +21,7 @@ class Contact
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
     
     /**
      * Many Contacts have One User.
@@ -29,7 +29,7 @@ class Contact
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @Assert\NotBlank()
      */
-    private $user;	
+    protected $user;	
    
     
     /**
@@ -39,7 +39,7 @@ class Contact
      * @Assert\NotBlank()
      * @Assert\Length(min=5)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string
@@ -51,7 +51,7 @@ class Contact
      *     checkMX = true
      * )
      */
-    private $email;
+    protected $email;
 
 
     /**

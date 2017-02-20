@@ -21,23 +21,62 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use SMARTASK\HomeBundle\Form\TaskType;
 use SMARTASK\HomeBundle\Form\ContactType;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Request\ParamFetcher;
 
 class TaskController extends Controller
 {
 	/**
 	 * @Rest\View(serializerGroups={"task"})
 	 * @Rest\Get("/api/users/{user_id}/tasks")
+	 * @QueryParam(name="offset", requirements="\d+", default="", description="Index de début de la pagination")
+     * @QueryParam(name="limit", requirements="\d+", default="", description="Index de fin de la pagination")
+     * @QueryParam(name="sort", requirements="(asc|desc)", nullable=true, description="Ordre de tri (basé sur le nom)")
+     *
 	 */
-	public function getTasksAction(Request $request)
+	public function getTasksAction(Request $request, ParamFetcher $paramFetcher)
 	{
+		$offset = $paramFetcher->get('offset');
+		$limit = $paramFetcher->get('limit');
+		$sort = $paramFetcher->get('sort');
+		/*
 		$userManager = $this->container->get('fos_user.user_manager');
 		$user = $userManager->findUserBy(array('id'=>$request->get('user_id')));
 	
 		if (empty($user)) {
 			return $this->userNotFound();
 		}
-	
 		return $user->getTasks();
+		*/
+		
+		
+		
+		$query = $this->get('doctrine.orm.entity_manager')->createQueryBuilder();
+		
+		$query->select ('t');
+		$query->from('SMARTASKHomeBundle:Task', 't');
+		$query->leftJoin('t.users','u');
+		$query->where('u.id = :user_id');
+		$query->setParameter("user_id", $request->get('user_id'));
+		
+		if ($offset != "") {
+			$query->setFirstResult($offset);
+		}
+		
+		if ($limit != "") {
+			$query->setMaxResults($limit);
+		}
+		
+		if (in_array($sort, ['asc', 'desc'])) {
+			$query->orderBy('p.name', $sort);
+		}
+		
+		
+		$tasks = $query->getQuery()->getResult();
+		
+		return $tasks;
+	
+		
 	}
 	
 	/**

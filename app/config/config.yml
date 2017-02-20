@@ -3,9 +3,19 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@SMARTASKAPIBundle/Resources/config/services.yml" }
+   
 fos_rest:
+    serializer:
+        serialize_null:  true
     routing_loader:
         include_format: false
+    exception:
+        enabled: true
+        messages:
+            'Symfony\Component\HttpKernel\Exception\HttpException' : true
+            'Symfony\Component\Security\Core\Exception\BadCredentialsException': true
+        codes:
+            'Symfony\Component\Security\Core\Exception\BadCredentialsException': 401    
     view:
         view_response_listener: true
         formats:
@@ -17,6 +27,8 @@ fos_rest:
             - { path: '^/', priorities: [ 'html', '*/*'], fallback_format: ~, prefer_extension: true }
     body_listener:
         enabled: true      
+    param_fetcher_listener:
+        enabled: true    
 fos_elastica:   
     clients:
         default: { host: "%database_host%", port: "%database_port%" }
@@ -125,6 +137,7 @@ fos_user:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
+    jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
 
 framework:
     #esi:             ~
@@ -135,8 +148,10 @@ framework:
         strict_requirements: ~
     form:            ~
     csrf_protection: ~
-    validation:      { enable_annotations: true }
-    serializer:      { enable_annotations: true }
+    validation:
+        enabled: true
+    serializer:
+        enabled: false
     templating:
         engines: ['twig']
     default_locale:  "%locale%"

@@ -8,6 +8,7 @@ use SMARTASK\HomeBundle\Entity\Task ;
 use SMARTASK\HomeBundle\Entity\Groupe ;
 use SMARTASK\HomeBundle\Entity\Contact ;
 use FOS\ElasticaBundle\Configuration\Search;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -16,7 +17,7 @@ use FOS\ElasticaBundle\Configuration\Search;
  *  * @Search(repositoryClass="SMARTASK\UserBundle\Repository\UserRepository")
  * @ORM\Entity(repositoryClass="SMARTASK\UserBundle\Repository\UserRepository")
  */
-class User extends BaseUser
+class User extends BaseUser implements UserInterface
 {
     /**
      * @var int

@@ -1,0 +1,32 @@
+UserBundle\Entity\User:
+    attributes:
+        id:
+            groups: ['user', 'contact', 'group', 'task']
+        username:
+            groups: ['user', 'contact', 'group', 'task']
+        username_canonical:
+            groups: ['user', 'contact', 'group', 'task']
+        email:
+            groups: ['user', 'contact', 'group', 'task']
+        email_canocical:
+            groups: ['user', 'contact', 'group', 'task']
+        enable:
+            groups: ['user', 'contact', 'group', 'task']
+        salt:
+            groups: ['user', 'contact', 'group', 'task']
+        password:
+            groups: ['user', 'contact', 'group', 'task']
+        last_login:
+            groups: ['user', 'contact', 'group', 'task']
+        confirmation_token:
+            groups: ['user', 'contact', 'group', 'task']
+        password_requested_at:
+            groups: ['user', 'contact', 'group', 'task']
+        roles:
+            groups: ['user', 'contact', 'group', 'task']                                    
+        contacts:
+            groups: ['user']
+        groupes:
+            groups: ['user']    
+        tasks:
+            groups: ['user']

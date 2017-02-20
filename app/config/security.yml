@@ -3,6 +3,8 @@
 security:
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
+#        auth_token_user_provider:
+#            id: auth_token_user_provider
         fos_userbundle:
           id: fos_user.user_provider.username
 
@@ -14,8 +16,12 @@ security:
 
         main:
             pattern:      ^/
-            anonymous:    true
-            provider:     fos_userbundle
+#            anonymous:    true
+#            stateless: true 
+#            simple_preauth:
+#                authenticator: auth_token_authenticator
+            provider:     fos_user_provider
+            anonymous: ~
             form_login:
                 provider: fos_userbundle
                 login_path: login

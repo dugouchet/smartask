@@ -21,7 +21,10 @@ groups:
     resource: "@SMARTASKAPIBundle/Controller/GroupeController.php" 
 tasks:
     type:     rest
-    resource: "@SMARTASKAPIBundle/Controller/TaskController.php"          
+    resource: "@SMARTASKAPIBundle/Controller/TaskController.php"     
+auth-tokens:
+    type:     rest
+    resource: "@SMARTASKAPIBundle/Controller/AuthTokenController.php"         
 #api:
 #    type:     rest
 #    resource: "@SMARTASKAPIBundle/Controller/DefaultController.php"

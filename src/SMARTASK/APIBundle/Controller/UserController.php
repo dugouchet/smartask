@@ -21,9 +21,91 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use SMARTASK\HomeBundle\Form\TaskType;
 use SMARTASK\HomeBundle\Form\ContactType;
+use SMARTASK\UserBundle\Form\UserType;
 
 class UserController extends Controller
 {
+	/**
+	 * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"user"})
+	 * @Rest\Post("/api/users")
+	 */
+	public function postUsersAction(Request $request)
+	{
+		$user = new User();
+		$form = $this->createForm(UserType::class, $user, ['validation_groups'=>['Default', 'New']]);
+	
+		$form->submit($request->request->all());
+	
+		if ($form->isValid()) {
+			// le mot de passe en claire est encodé avant la sauvegarde
+			$user->setUsername($request->get('username'));
+			$user->setEmail($request->get('email'));
+			$user->setPassword( ($request->get('Plainpassword') ));// A modifier par la suite
+	
+			$em = $this->get('doctrine.orm.entity_manager');
+			$em->persist($user);
+			$em->flush();
+			return $user;
+		} else {
+			return $form;
+		}
+	}
+	
+	/**
+	 * @Rest\View(serializerGroups={"user"})
+	 * @Rest\Put("/api/users/{id}")
+	 */
+	public function updateUserAction(Request $request)
+	{
+		return $this->updateUser($request, true);
+	}
+	
+	/**
+	 * @Rest\View(serializerGroups={"user"})
+	 * @Rest\Patch("/api/users/{id}")
+	 */
+	public function patchUserAction(Request $request)
+	{
+		return $this->updateUser($request, false);
+	}
+	
+	private function updateUser(Request $request, $clearMissing)
+	{
+		$user = $this->get('doctrine.orm.entity_manager')
+		->getRepository('SMARTASKUserBundle:User')
+		->find($request->get('id')); // L'identifiant en tant que paramètre n'est plus nécessaire
+		/* @var $user User */
+	
+		if (empty($user)) {
+			return $this->userNotFound();
+		}
+	
+		if ($clearMissing) { // Si une mise à jour complète, le mot de passe doit être validé
+			$options = ['validation_groups'=>['Default', 'FullUpdate']];
+		} else {
+			$options = []; // Le groupe de validation par défaut de Symfony est Default
+		}
+	
+		$form = $this->createForm(UserType::class, $user, $options);
+	
+		$form->submit($request->request->all(), $clearMissing);
+	
+		if ($form->isValid()) {
+			// Si l'utilisateur veut changer son mot de passe
+			if (!empty($user->getPlainPassword())) {
+				$encoder = $this->get('security.password_encoder');
+				$encoded = $encoder->encodePassword($user, $user->getPlainPassword());
+				$user->setPassword($encoded);
+			}
+			$em = $this->get('doctrine.orm.entity_manager');
+			$em->merge($user);
+			$em->flush();
+			return $user;
+		} else {
+			return $form;
+		}
+	}
+	
 	/**
 	 * @Rest\View(serializerGroups={"user"})
 	 * @Rest\Get("/api/users")
@@ -47,9 +129,15 @@ class UserController extends Controller
 		$user = $userManager->findUserBy(array('id'=>$request->get('user_id')));
 		
 		if (empty($user)) {
-			return new JsonResponse(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
+			return $this->userNotFound();
 		}
 		
 		return $user ;
 	}
+	
+	private function userNotFound()
+	{
+		return \FOS\RestBundle\View\View::create(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
+	}	
+	
 }
