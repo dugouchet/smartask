@@ -1,0 +1,20 @@
+SMARTASK\APIBundle\Entity\AuthToken:
+    type: entity
+    table: null
+    repositoryClass: SMARTASK\APIBundle\Repository\AuthTokenRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        value:
+            type: string
+            length: 255
+        createdAt:
+            type: datetime
+        user:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }
