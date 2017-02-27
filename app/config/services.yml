@@ -13,5 +13,6 @@ services:
         class: SMARTASK\HomeBundle\EventListner\APICalledListner
         arguments: ["@mailer"]
         tags:
-            - { name: kernel.event_subscriber }            
+            - { name: kernel.event_subscriber }     
+  
 

@@ -13,6 +13,7 @@ security:
     firewalls:
         secured_api:
             pattern: ^/api
+            anonymous:    true
             stateless: true
             simple_preauth:
                 authenticator: auth_token_authenticator

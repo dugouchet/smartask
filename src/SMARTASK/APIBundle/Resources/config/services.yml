@@ -17,4 +17,4 @@ services:
     auth_token_authenticator:
         class:     SMARTASK\APIBundle\Security\AuthTokenAuthenticator
         arguments: ["@security.http_utils"]
-        public:    false
+        public:    false     
