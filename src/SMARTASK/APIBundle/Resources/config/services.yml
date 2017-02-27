@@ -18,3 +18,9 @@ services:
         class:     SMARTASK\APIBundle\Security\AuthTokenAuthenticator
         arguments: ["@security.http_utils"]
         public:    false     
+    app.user_voter:
+        class: SMARTASK\HomeBundle\Security\GroupeVoter
+        tags:
+            - { name: security.voter }
+        # small performance boost
+        public: false

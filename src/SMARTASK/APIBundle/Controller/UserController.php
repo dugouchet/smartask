@@ -28,6 +28,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class UserController extends Controller
 {
@@ -139,6 +140,10 @@ class UserController extends Controller
 	{
 		$userManager = $this->container->get('fos_user.user_manager');
 		$user = $userManager->findUserBy(array('id'=>$request->get('user_id')));
+		$security = $this->get('security.authorization_checker');
+		if (false === $security->isGranted('view', $user)) {
+			throw new AccessDeniedHttpException();
+		}
 		
 		if (empty($user)) {
 			return $this->userNotFound();

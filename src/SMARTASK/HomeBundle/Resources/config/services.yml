@@ -1,5 +1,5 @@
 services:
-    app.post_voter:
+    app.group_voter:
         class: SMARTASK\HomeBundle\Security\GroupeVoter
         tags:
             - { name: security.voter }
