@@ -6,6 +6,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use SMARTASK\HomeBundle\Entity\Groupe;
+use SMARTASK\HomeBundle\Form\TaskType;
+use SMARTASK\HomeBundle\Form\ContactType;
+use SMARTASK\HomeBundle\Form\GroupeType;
 
 class UserType extends AbstractType
 {
@@ -18,8 +23,21 @@ class UserType extends AbstractType
         		->add('password')
         		->add('plainPassword')
         		->add('email', EmailType::class)
-        		->add('groupes')
-        		->add('tasks');
+        		->add('groupes', CollectionType::class, [
+        				'entry_type' => GroupeType::class,
+        				'allow_add' => true,
+        				'error_bubbling' => false,
+        		])/*
+        		->add('tasks', CollectionType::class, [
+        				'entry_type' => TaskType::class,
+        				'allow_add' => true,
+        				'error_bubbling' => false,
+        		])*/
+        		->add('contacts', CollectionType::class, [
+        				'entry_type' => ContactType::class,
+        				'allow_add' => true,
+        				'error_bubbling' => false,
+        		]);
     }
     
     /**

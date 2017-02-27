@@ -1,10 +1,11 @@
 SMARTASK\APIBundle\Entity\AuthToken:
-    attributes:
+    exclusion_policy: none
+    properties:
         id:
             groups: ['auth-token']
         value:
             groups: ['auth-token']
         createdAt:
             groups: ['auth-token']
-        user:
+        user_id:
             groups: ['auth-token']

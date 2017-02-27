@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *  * @Search(repositoryClass="SMARTASK\UserBundle\Repository\UserRepository")
  * @ORM\Entity(repositoryClass="SMARTASK\UserBundle\Repository\UserRepository")
  */
-class User extends BaseUser implements UserInterface
+class User extends BaseUser
 {
     /**
      * @var int

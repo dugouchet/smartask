@@ -9,15 +9,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use SMARTASK\HomeBundle\Entity\Groupe;
 use SMARTASK\HomeBundle\Entity\Task;
-use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Component\Validator\Constraints\Time;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use SMARTASK\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use SMARTASK\HomeBundle\Form\TaskType;
 use SMARTASK\HomeBundle\Form\GroupeType;
 use SMARTASK\HomeBundle\Form\ContactType;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class DefaultController extends Controller {
 	
@@ -62,6 +60,10 @@ class DefaultController extends Controller {
 		$em =$this->getDoctrine()->getManager();
 		$group= $em->getRepository('SMARTASKHomeBundle:Groupe')->find( $id );
 		$listTasks = $em->getRepository('SMARTASKHomeBundle:Task')->findBy(array('group' => $group));
+		$security = $this->get('security.authorization_checker');
+		if (false === $security->isGranted('edit', $group)) {
+			throw new AccessDeniedHttpException();
+		}
 		$nbtask = count($listTasks);
 		return $this->render('SMARTASKHomeBundle:Default:listTaskGroup.html.twig',array('listTasks' => $listTasks,'group' => $group,'nbtask'=>$nbtask));
 	}
@@ -76,6 +78,12 @@ class DefaultController extends Controller {
 	public function listMembersGroupAction($id){
 		$em =$this->getDoctrine()->getManager();
 		$group= $em->getRepository('SMARTASKHomeBundle:Groupe')->find( $id );
+		
+		$security = $this->get('security.authorization_checker');
+		if (false === $security->isGranted('edit', $group)) {
+			throw new AccessDeniedHttpException();
+		}
+		
 		return $this->render('SMARTASKHomeBundle:Default:listMembersGroup.html.twig',array('group' => $group));
 	}
 	
@@ -83,6 +91,11 @@ class DefaultController extends Controller {
 		$user = $this->getUser();// Pour r�cup�rer le service UserManager du bundle
 		$em =$this->getDoctrine()->getManager();
 		$group= $em->getRepository('SMARTASKHomeBundle:Groupe')->find( $id );
+		
+		$security = $this->get('security.authorization_checker');
+		if (false === $security->isGranted('edit', $group)) {
+			throw new AccessDeniedHttpException();
+		}
 		
 		if ($request->isMethod('POST')){
 			$emailcontact = $request->get('email');
@@ -107,6 +120,10 @@ class DefaultController extends Controller {
 	public function open_group_detailAction($id){ 
 		$em =$this->getDoctrine()->getManager();
 		$group= $em->getRepository('SMARTASKHomeBundle:Groupe')->find( $id );
+		$security = $this->get('security.authorization_checker');
+		if (false === $security->isGranted('edit', $group)) {
+			throw new AccessDeniedHttpException();
+		}
 		return $this->render('SMARTASKHomeBundle:Default:detailgroup.html.twig',array('group' => $group));
 	}
 	/**

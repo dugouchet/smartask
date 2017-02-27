@@ -22,6 +22,12 @@ use Symfony\Component\Security\Core\Security;
 use SMARTASK\HomeBundle\Form\TaskType;
 use SMARTASK\HomeBundle\Form\ContactType;
 use SMARTASK\UserBundle\Form\UserType;
+use SMARTASK\HomeBundle\Event\FormEvent;
+use SMARTASK\HomeBundle\SMARTASKHomeEvents;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
 class UserController extends Controller
 {
@@ -31,16 +37,22 @@ class UserController extends Controller
 	 */
 	public function postUsersAction(Request $request)
 	{
+		
 		$user = new User();
 		$form = $this->createForm(UserType::class, $user, ['validation_groups'=>['Default', 'New']]);
 	
 		$form->submit($request->request->all());
 	
 		if ($form->isValid()) {
+			
+			$dispatcher = $this->get('event_dispatcher');
+			$event = new FormEvent($form, $request);
+			$dispatcher->dispatch(SMARTASKHomeEvents::API_CALLED, $event);
+			
+			$encoder = $this->get('security.password_encoder');
 			// le mot de passe en claire est encodé avant la sauvegarde
-			$user->setUsername($request->get('username'));
-			$user->setEmail($request->get('email'));
-			$user->setPassword( ($request->get('plainpassword') ));// A modifier par la suite et rajouter la transformarion du mdp
+			$encoded = $encoder->encodePassword($user, $user->getPlainPassword());
+			$user->setPassword($encoded);
 	
 			$em = $this->get('doctrine.orm.entity_manager');
 			$em->persist($user);

@@ -9,23 +9,9 @@ services:
         arguments: ["@router"]
         tags:
             - { name: kernel.event_subscriber }
-            
-#    auth_token_user_provider:
-#        class: SMARTASK\APIBundle\Security\AuthTokenUserProvider
-#        arguments: ["@auth_token_repository", "@user_repository"]
-#        public:    false
-#
-#    auth_token_repository:
-#        class:   Doctrine\ORM\EntityManager
-#        factory: ["@doctrine.orm.entity_manager", "getRepository"]
-#        arguments: ["SMARTASKAPIBundle:AuthToken"]
-#
-#    user_repository:
-#        class:   Doctrine\ORM\EntityManager
-#        factory: ["@doctrine.orm.entity_manager", "getRepository"]
-#        arguments: ["SMARTASKUserBundle:User"]
-#
-#    auth_token_authenticator:
-#        class:     SMARTASK\APIBundle\Security\AuthTokenAuthenticator
-#        arguments: ["@security.http_utils"]
-#        public:    false
+    api_called:
+        class: SMARTASK\HomeBundle\EventListner\APICalledListner
+        arguments: ["@mailer"]
+        tags:
+            - { name: kernel.event_subscriber }            
+

@@ -12,6 +12,7 @@ class Credentials
 	
 	protected $password;
 	
+	
 	public function getLogin()
 	{
 		return $this->login;

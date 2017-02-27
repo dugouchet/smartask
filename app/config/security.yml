@@ -1,14 +1,22 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/security.html
 security:
+#    acl:
+#        connection: default
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-#        auth_token_user_provider:
-#            id: auth_token_user_provider
+        auth_token_user_provider:
+            id: auth_token_user_provider
         fos_userbundle:
           id: fos_user.user_provider.username
 
     firewalls:
+        secured_api:
+            pattern: ^/api
+            stateless: true
+            simple_preauth:
+                authenticator: auth_token_authenticator
+            provider: auth_token_user_provider
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -16,11 +24,9 @@ security:
 
         main:
             pattern:      ^/
-#            anonymous:    true
-#            stateless: true 
-#            simple_preauth:
-#                authenticator: auth_token_authenticator
-            provider:     fos_user_provider
+            anonymous:    true
+            stateless: false # must be false
+            provider:  fos_user_provider
             anonymous: ~
             form_login:
                 provider: fos_userbundle
@@ -42,3 +48,4 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+ #       - { path: ^/api, roles: ROLE_API }

@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterface;
 use Symfony\Component\Security\Http\HttpUtils;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthTokenAuthenticator implements SimplePreAuthenticatorInterface, AuthenticationFailureHandlerInterface
 {
@@ -95,7 +96,11 @@ class AuthTokenAuthenticator implements SimplePreAuthenticatorInterface, Authent
 
 	public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
 	{
-		// Si les données d'identification ne sont pas correctes, une exception est levée
-		throw $exception;
+		return new Response(
+				// this contains information about *why* authentication failed
+				// use it, or return your own message
+				strtr($exception->getMessageKey(), $exception->getMessageData()),
+				401
+				);
 	}
 }

@@ -9,6 +9,7 @@ use FOS\RestBundle\Controller\Annotations as Rest; // alias pour toutes les anno
 use SMARTASK\APIBundle\Form\Type\CredentialsType;
 use SMARTASK\APIBundle\Entity\AuthToken;
 use SMARTASK\APIBundle\Entity\Credentials;
+use SMARTASK\UserBundle\Entity\User;
 
 class AuthTokenController extends Controller
 {
@@ -26,7 +27,6 @@ class AuthTokenController extends Controller
 		if (!$form->isValid()) {
 			return $form;
 		}
-
 		$em =$this->getDoctrine()->getManager();
 		$user = $em->getRepository('SMARTASKUserBundle:User')->findOneBy(array('email' => $credentials->getLogin()));
 
